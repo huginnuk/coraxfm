@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }} - {{ tag }} tag{% endblock %}
+
+{% block content %}
+<h2>Articles tagged with {{ tag }}</h2>
+
+<dl>
+{% for article in dates %}
+    <dt>{{ article.date.strftime("%Y-%m-%d") }} <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dt>
+    <dd>{{ article.summary }}</dd>
+{% endfor %}
+</dl>
+{% endblock %}
