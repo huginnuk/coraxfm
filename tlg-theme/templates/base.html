@@ -5,6 +5,11 @@
         <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
             
         {% for sheet in CSS_FILE %}
             <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ sheet }}" />
@@ -42,25 +47,29 @@
 
     <div class="container">
 
-        <header>
-            <h1 id="page-top">TOM LEE-GOUGH</h1>
-            <p><strong>accountancy services</strong></p>
-            <p>Darlington based, general accountancy practice. Get in contact to find out how we can help you.</p>
+        <header class="navbar m-2">
+                <section class="navbar-section">
+                    <a href="../" class="navbar-brand mr-2"><span class="text-primary text-large">Corax FM</span></a>
+                </section>
 
-            <div class="call-to-action">
-                <!-- <a class="button" href="mailto:info@tlg-accounting.co.uk">info@tlg-accounting.co.uk</a> -->
-            </div>
-        </header>
+                <section class="navbar-section">
+                    <a class="btn btn-link bg-primary text-light hide-sm" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>        
+                    {% for p in pages %}
+                        <a class="btn btn-link" href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                    {% endfor %}
+                    <a class="btn btn-link mr-2" href="../archives.html">Blog</a>
+                    <a class="btn btn-link bg-success text-light hide-sm" href="../">Get A Quote</a>
+                </section>
+
+                <secion class="navbar-section show-sm">
+                    <a class="btn btn-link bg-primary text-light" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>
+                    <a class="btn btn-link bg-success text-light" href="../">Get A Quote</a>
+                </secion>
+            </header>
 
 
         <div class="page-content">
-            <nav>
-                <a class="button" href="mailto:info@tlg-accounting.co.uk">info@tlg-accounting.co.uk</a>
-                {% for p in pages %}
-                    <a class="button" href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
-                {% endfor %}
-                <a class="button" href="../archives.html">Blog</a>
-            </nav>
+            
 
             <div class="content">
             {% block content %}
@@ -69,11 +78,10 @@
 
         </div>
 
-        <footer>
-            <div>
+        <footer class="hero hero-sm">
+            <div class="">
               {% for link in LINKS %}
-                <a href="{{link[1]}}">{{link[0]}}</a>
-                {% if link != LINKS[-1] %}|{% endif %}
+                <a href="{{link[1]}}" class="btn btn-link">{{link[0]}}</a>
               {% endfor %}
             </div>
 

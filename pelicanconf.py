@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Tom Lee-Gough'
-SITENAME = 'tlg-accounting.co.uk'
-SITEURL = 'https://tlg-accounting.co.uk'
+SITENAME = 'Corax FM'
+SITEURL = 'https://coraxfm.uk'
 
 PATH = 'content'
 
@@ -21,11 +21,12 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (
-    ('Email', 'mailto:info@tlg-accouting.co.uk'),
+    ('info@coraxfm.uk', 'mailto:info@coraxfm.uk'),
     ('CIMA', 'https://www.cimaglobal.com/About-us/Find-a-CIMA-Accountant/Tom-Lee-Gough-Accounting-13911/'),
-    ('LinkedIn', 'https://www.linkedin.com/company/tlg-accounting/'),
-    ('Hermes', 'https://hermes.dev.huginn.co.uk'),
-    ('Xero', 'https://xero.com'),
+    # ('LinkedIn', 'https://www.linkedin.com/company/tlg-accounting/'),
+    ('Hermes', 'https://hermes.huginn.uk'),
+    ('Cosearch', 'https://cosearch.huginn.uk'),
+    ('Storyset', 'https://storyset.com/'),
     ('TOP', '#')
 )
 
@@ -38,7 +39,8 @@ LINKS = (
 DEFAULT_PAGINATION = False
 
 CSS_FILE = [
-	# 'spectre.min.css',
+    'fontawesome/css/all.min.css',
+	'spectre.min.css',
 	'style.css'
 ]
 THEME = 'tlg-theme'

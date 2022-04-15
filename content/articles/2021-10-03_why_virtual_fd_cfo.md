@@ -1,7 +1,8 @@
 Title: Why do you need a Virtual Finance Director?
 Date: 2021-10-03
 Tags: Accounting, Finance Director, FD, Chief Finance Officer, CFO
-Summary: Reasons why you need a Virtual Finance Director in your business
+Summary: Why you need a Virtual Finance Director
+Image: pexels/pexels-pixabay-220301.jpg
 
 Whether you call it a Finance Director (FD) or a Chief Finance Officer (CFO), you need someone doing this role in your business - here's why.
 

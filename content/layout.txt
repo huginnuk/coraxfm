@@ -1,0 +1,47 @@
+base.html
+	body
+		div - container
+			header
+				section - navbar-secion
+				section - navbar-secion
+				section - navbar-secion
+
+			div - page-content
+				div - content
+					{ block content }
+
+			footer - hero
+
+index.html
+	div - hero
+		prices
+		contact form
+	
+	div - hero
+		services
+	
+	div - hero
+		how we work
+
+page.html
+	div - hero
+		page summary
+
+
+	div - hero
+		page content
+
+archives.html
+	div - hero
+		page title
+
+	div - hero
+		list of articles
+
+article.html
+	div - hero
+		article title
+
+	div - hero
+		article content
+		artilce metadata, tags

@@ -1,7 +1,8 @@
-Title: API, FTP WTF!
+Title: API, FTP, WTF!
 Date: 2021-01-26
 Tags: Accounting, Software, Technology
 Summary: Your guide to automation in accounting
+Image: pexels/pexels-negative-space-97077.jpg
 
 Automating your accounting (and other) systems can be great for your business. It can help you get more done and with fewer errors. In order to get something automated, data needs to be retrieved from one and put into another. I wil describe two common methods.
 

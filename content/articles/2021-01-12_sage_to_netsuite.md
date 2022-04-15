@@ -2,6 +2,7 @@ Title: Migrating from Sage to Netsuite
 Date: 2021-01-12
 Tags: Accounting, Software, Case Study
 Summary: One customers journey from Sage50 to Netsuite
+Image: pexels/pexels-negative-space-160107.jpg
 
 In early 2020, I migrated a client from [Sage50](https://www.sage.com/en-gb/products/sage-50cloud/) to [Oracle's Netsuite](https://www.netsuite.com/portal/home.shtml). Read about how the project was implemented.
 

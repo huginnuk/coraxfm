@@ -2,6 +2,7 @@ Title: Accounting Database Design
 Date: 2021-07-27
 Tags: Accounting
 Summary: Database choices in accounting software
+Image: origin/database.png
 
 Over the past few years, I have been developing my own accounting software [Hermes](https://hermes.dev.huginn.uk). It has primarily been so that I can learn how to write software, but in an area where I know what the end product should look like. It's been an interesting process thinking about how the data interacts and what the structure should be.
 
@@ -11,7 +12,7 @@ When I first wrote Hermes, I wasn't sure what type of organisation or individual
 
 What I really wanted in a database was a table that listed all of the transactions in a single table. It might looks something like this:
 
-<table>
+<table class="table table-sm">
 	<tr>
 		<th>Date</th>
 		<th>Description</th>

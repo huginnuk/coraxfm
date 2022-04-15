@@ -2,6 +2,7 @@ Title: Python Basics
 Date: 2021-01-31
 Tags: Python, Software, Technology
 Summary: Basic Python concepts
+Image: origin/python.png
 
 In some future posts, I will make worked examples of API interactions and some automations. My preferred programming language is [Python](https://python.org). I cannot remember why I chose to learn Python, but it was pretty strightforward to pick up. I initially learned about coding when recording macros within Excel, then trying to improve them by writing the VBA (Visual Basic). In this post, I will cover some of the basic concepts that I will use in later posts.
 

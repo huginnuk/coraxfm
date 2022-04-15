@@ -2,6 +2,7 @@ Title: Migrating Accounting Systems
 Date: 2021-01-03
 Tags: Accounting, Software
 Summary: What is the process for migrating accounting systems?
+Image: pexels/pexels-picjumbocom-461077.jpg
 
 Whether implementing an accounting system like [Xero](https://xero.com) for the first time, or migrating to or from other software, you'll need to follow the correct steps.
 
