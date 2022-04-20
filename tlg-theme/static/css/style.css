@@ -6,3 +6,16 @@
 a, a:visited {
     text-decoration: underline 2px;
 }
+
+img.border {
+    border: solid 2px lightgrey;
+}
+
+table, th, tr, td {
+    border:  1px solid #133567;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding:  5px;
+}

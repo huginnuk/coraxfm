@@ -16,50 +16,38 @@
 
 {% endblock %}
 
-{% block content %}
+{% block content_title %}
 
 <div class="columns">
-
-        <div class="column hero col-12 bg-primary text-light">
-            <div class="columns">
-                <div class="column col-8 col-sm-10 col-mx-auto">
-                    <div class="columns">
-                        <div class="column col-12 text-center">
-                                <h2>{{ article.title }}</h2>
-                        </div>
-                    </div>
-                </div>                
-            </div>
-        </div>
-
-        <div class="column hero col-12 bg-gray text-dark">
-            <div class="columns">
-                <div class="column col-8 col-sm-10 col-mx-auto">
-                    <div class="columns">
-                        <div class="column col-12">
-                            {{ article.content}}
-                        </div>
-
-                        <div class="column col-12">
-                        <footer class="post-info text-left">
-                            <time class="published" datetime="{{ article.date.isoformat() }}">
-                              {{ article.locale_date }}
-                            </time>
-                            {% if article.tags %}
-                            <div class="tags">
-                                Tags:
-                                {% for tag in article.tags %}
-                                    <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                          </footer><!-- /.post-info -->
-                      </div>
-                    </div>
-                </div>                
-            </div>
-        </div>
-
+  <div class="column col-12 text-center">
+     <h1>{{article.title}}</h1>
     </div>
+</div>
+
+{% endblock %}
+
+{% block content_first %}
+<div class="column col-8 col-sm-10 col-mx-auto">
+    <div class="columns">
+        <div class="column col-12">
+            {{ article.content}}
+        </div>
+
+        <div class="column col-12">
+        <footer class="post-info text-left">
+            <time class="published" datetime="{{ article.date.isoformat() }}">
+              {{ article.locale_date }}
+            </time>
+            {% if article.tags %}
+            <div class="tags">
+                Tags:
+                {% for tag in article.tags %}
+                    <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </footer><!-- /.post-info -->
+    </div>
+</div>
 
 {% endblock %}

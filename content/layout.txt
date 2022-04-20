@@ -45,3 +45,10 @@ article.html
 	div - hero
 		article content
 		artilce metadata, tags
+
+tag.html
+	div - hero
+		tag title
+
+	div - hero
+		tag list

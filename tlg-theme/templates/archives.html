@@ -2,40 +2,37 @@
 
 {% block title %}{{ SITENAME }} - Blog{% endblock %}
 
-{% block content %}
-    <div class="columns">
+{% block content_title %}
 
-        <div class="column hero col-12 bg-primary text-light">
-            <div class="columns">
-                <div class="column col-8 col-md-12 col-mx-auto">
-                    <div class="columns">
-                        <div class="column col-12 text-center">
-                            <h1>Corax FM Blog</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="column hero col-12 bg-gray text-primary">
-            <div class="columns">
-                {% for article in dates %}
-                <div class="column col-3 col-md-6 col-sm-12 mt-2">
-                    <div class="card">
-
-                        <div class="card-image hide-md">
-                            <img class="img-responsive" src="../images/{{ article.image }}">
-                        </div>
-                        
-                        <div class="card-body">
-                            <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
-                            <p>{{article.summary}}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}    
+<div class="columns">
+    <div class="column col-8 col-md-12 col-mx-auto">
+        <div class="columns">
+            <div class="column col-12 text-center">
+                <h1>Corax FM Blog</h1>
             </div>
         </div>
     </div>
+</div>
+
+{% endblock %}
+
+{% block content_first %}
+<div class="columns">
+    {% for article in dates %}
+    <div class="column col-3 col-md-6 col-sm-12 mt-2">
+        <div class="card">
+
+            <div class="card-image hide-md">
+                <img class="img-responsive" src="../images/{{ article.image }}">
+            </div>
+            
+            <div class="card-body">
+                <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+                <p>{{article.summary}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}    
+</div>
 
 {% endblock %}

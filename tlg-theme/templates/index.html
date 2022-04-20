@@ -1,79 +1,73 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="columns">
-    <div class="column hero col-12 bg-primary text-light">
+
+{% block content_title %}
         <div class="columns">
-            <div class="column col-8 col-sm-10 col-mx-auto">
+            <div class="column col-md-12 col-6 col-mx-auto p-2">
+
+                <h1>Get Fixed Fee Accounting!</h1>
+
+                <ul>
+                    <li><span style="width: 200px; display: inline-block;">Self-Assessment</span> £120</li>
+                    <li><span style="width: 200px; display: inline-block;">Micro Company Accounts</span> £800</li>
+                    <li><span style="width: 200px; display: inline-block;">Small Company Accounts</span> £1200</li>
+                </ul>
+
+                <p>Do you want to get on running your business? Contact us now, to get started.</p>
+            </div>
+
+            <div class="column col-6 col-md-12 col-mx-auto p-2">
 
                 <div class="columns">
-                    <div class="column col-md-12 col-6 col-mx-auto p-2">
+                    <form class="form-horizontal column col-8 col-md-12 bg-gray text-primary p-2 p-centered" name="quote" netlify>
+                        <h2 class="text-primary">Contact us!</h2>
+                        <div class="form-group">
+                            <div class="column col-3 col-md-12">
+                                <label class="form-label label-lg" for="name-field">Name</label>
+                            </div>
 
-                        <h1>Get Fixed Fee Accounting!</h1>
-
-                        <ul>
-                            <li><span style="width: 200px; display: inline-block;">Self-Assessment</span> £120</li>
-                            <li><span style="width: 200px; display: inline-block;">Micro Company Accounts</span> £800</li>
-                            <li><span style="width: 200px; display: inline-block;">Small Company Accounts</span> £1200</li>
-                        </ul>
-
-                        <p>Do you want to get on running your business? Contact us now, to get started.</p>
-                    </div>
-
-                    <div class="column col-6 col-md-12 col-mx-auto p-2">
-
-                        <div class="columns">
-                            <form class="form-horizontal column col-8 col-md-12 bg-gray text-primary p-2 p-centered" name="quote" netlify>
-                                <h2 class="text-primary">Contact us!</h2>
-                                <div class="form-group">
-                                    <div class="column col-3 col-md-12">
-                                        <label class="form-label label-lg" for="name-field">Name</label>
-                                    </div>
-
-                                    <div class="column col-9 col-md-12">
-                                        <input class="form-input input-lg" type="text" id="name-field" name="name-field" placeholder="Name">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="column col-3 col-md-12">
-                                        <label class="form-label label-lg" for="email-field">Email</label>
-                                    </div>
-
-                                    <div class="column col-9 col-md-12">
-                                        <input class="form-input input-lg" type="text" id="email-field" name="email-field" placeholder="Email">
-                                    </div>
-                                </div>  
-
-                                <div class="form-group">
-                                    <div class="column col-3 col-md-12">
-                                        <label class="form-label label-lg" for="type-field">Type</label>
-                                    </div>
-                                    <div class="column col-9 col-md-12">
-                                        <select class="form-input input-lg" id="type-field" name="type-field">
-                                            <option value="individual">Individual</option>
-                                            <option value="sole trader">Sole-trader</option>
-                                            <option value="company">Company</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="column col-12">
-                                        <input class="form-input input-lg bg-primary text-light" type="submit" value="Send Details">
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="column col-9 col-md-12">
+                                <input class="form-input input-lg" type="text" id="name-field" name="name-field" placeholder="Name">
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            <div class="column col-3 col-md-12">
+                                <label class="form-label label-lg" for="email-field">Email</label>
+                            </div>
+
+                            <div class="column col-9 col-md-12">
+                                <input class="form-input input-lg" type="text" id="email-field" name="email-field" placeholder="Email">
+                            </div>
+                        </div>  
+
+                        <div class="form-group">
+                            <div class="column col-3 col-md-12">
+                                <label class="form-label label-lg" for="type-field">Type</label>
+                            </div>
+                            <div class="column col-9 col-md-12">
+                                <select class="form-input input-lg" id="type-field" name="type-field">
+                                    <option value="individual">Individual</option>
+                                    <option value="sole-trader">Sole-trader</option>
+                                    <option value="company">Company</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="column col-12">
+                                <input class="form-input input-lg bg-primary text-light" type="submit" value="Send Details">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-    </div>
-</div>
+        </div>
+{% endblock %}
 
-<div class="column col-12 bg-gray text-primary hero hero-sm">
-
+{% block content_first %}
+<!-- <div class="column col-12 bg-gray text-primary hero hero-sm"> -->
     <div class="columns">
-        <div class="column col-8 col-sm-10 col-mx-auto">
+        <div class="column col-8 col-md-12 col-lg-10 col-mx-auto">
             <div class="columns">
 
                 <div class="column col-12 text-center">
@@ -89,8 +83,9 @@
                         <li>Advice</li>
                     </ul>
 
-                    <img height=300px width=300px class="p-centered hide-sm" src="../images/storyset/Fill out-amico.svg">
+                    <img height=300px class="p-centered hide-md img-responsive" src="../images/storyset/Fill out-amico.svg">
                 </div>
+                
                 <div class="column col-4 col-md-12">
                     <h3>Company accounts</h3>
 
@@ -100,8 +95,9 @@
                         <li>Payroll</li>
                     </ul>
 
-                    <img height=300px width=300px class="p-centered hide-sm" src="../images/storyset/Statistics-amico.svg">
+                    <img height=300px class="p-centered hide-md img-responsive" src="../images/storyset/Statistics-amico.svg">
                 </div>
+                
                 <div class="column col-4 col-md-12">
                     <h3>Reporting</h3>
 
@@ -110,20 +106,18 @@
                         <li>Business Analysis</li>
                         <li>Forecasts and Budgeting</li>
                     </ul>
-                    <img height=300px width=300px class="p-centered hide-sm" src="../images/storyset/Report-amico.svg">
+                    <img height=300px class="p-centered hide-md img-responsive" src="../images/storyset/Report-amico.svg">
                 </div>
+
             </div>
-        
         </div>
-
     </div>
+<!-- </div> -->
+{% endblock %}
 
-</div>
-
-<div class="column col-12 bg-primary text-light hero hero-sm">
-
+{% block content_second %}
     <div class="columns">
-        <div class="column col-8 col-sm-10 col-mx-auto">
+        <div class="column col-8 col-sm-12 col-lg-10 col-mx-auto">
             <div class="columns">
                 <div class="column col-12 text-center">
                 
@@ -145,8 +139,6 @@
 
                     <p>After we've exhcanged documents and confirmed details, we'll get to work preparing your self-assessment or accounts. Once their complete, you'll approve the documents.</p>
 
-                    
-
                 </div>
 
                 <div class="column col-12">
@@ -159,8 +151,5 @@
             
             </div>
         </div>
-
     </div>
-
-</div>
 {% endblock %}

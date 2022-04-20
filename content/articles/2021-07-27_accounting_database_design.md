@@ -12,7 +12,7 @@ When I first wrote Hermes, I wasn't sure what type of organisation or individual
 
 What I really wanted in a database was a table that listed all of the transactions in a single table. It might looks something like this:
 
-<table class="table table-sm">
+<table class="">
 	<tr>
 		<th>Date</th>
 		<th>Description</th>

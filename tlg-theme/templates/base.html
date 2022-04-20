@@ -48,34 +48,57 @@
     <div class="container">
 
         <header class="navbar m-2">
-                <section class="navbar-section">
-                    <a href="../" class="navbar-brand mr-2"><span class="text-primary text-large">Corax FM</span></a>
-                </section>
+            <section class="navbar-section">
+                <a href="../" class="navbar-brand mr-2"><span class="text-primary text-large">Corax FM</span></a>
+            </section>
 
-                <section class="navbar-section">
-                    <a class="btn btn-link bg-primary text-light hide-sm" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>        
-                    {% for p in pages %}
-                        <a class="btn btn-link" href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
-                    {% endfor %}
-                    <a class="btn btn-link mr-2" href="../archives.html">Blog</a>
-                    <a class="btn btn-link bg-success text-light hide-sm" href="../">Get A Quote</a>
-                </section>
+            <section class="navbar-section">
+                <a class="btn btn-link bg-primary text-light hide-sm" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>        
+                {% for p in pages %}
+                    <a class="btn btn-link" href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                {% endfor %}
+                <a class="btn btn-link mr-2" href="../archives.html">Blog</a>
+                <a class="btn btn-link bg-success text-light hide-sm" href="../">Get A Quote</a>
+            </section>
 
-                <secion class="navbar-section show-sm">
-                    <a class="btn btn-link bg-primary text-light" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>
-                    <a class="btn btn-link bg-success text-light" href="../">Get A Quote</a>
-                </secion>
-            </header>
+            <secion class="navbar-section show-sm">
+                <a class="btn btn-link bg-primary text-light" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>
+                <a class="btn btn-link bg-success text-light" href="../">Get A Quote</a>
+            </secion>
+        </header>
 
 
         <div class="page-content">
             
+            <div class="columns">
+                <div class="column hero col-12 bg-primary text-light">
+                    <div class="columns">
+                        <div class="column col-8 col-lg-10 col-md-12 col-mx-auto">
+                                {% block content_title %}
+                                {% endblock %}
 
-            <div class="content">
-            {% block content %}
-            {% endblock %}
+                        </div>  
+                    </div>
+                </div>
             </div>
 
+            <div class="columns">
+                <div class="column col-12 bg-gray text-primary hero hero-sm">
+                    
+                                {% block content_first %}
+                                {% endblock %}
+                                
+                </div>
+            </div>
+
+            {% if output_file == 'index.html' %}
+            <div class="columns">
+                <div class="column col-12 bg-primary text-light hero hero-sm">
+                    {% block content_second %}
+                    {% endblock %}
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <footer class="hero hero-sm">

@@ -8,7 +8,15 @@
 
 {% endblock %}
 
-{% block content %}
+{% block content_title %}
+<div class="columns">
+  <div class="column col-12 text-center">
+     <h1>{{page.summary}}</h1>
+    </div>
+</div>
+{% endblock %}
+
+{% block content_first %}
 
     {{ page.content }}
 
