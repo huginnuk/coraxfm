@@ -1,6 +1,6 @@
 Title: Migrating from Sage to Netsuite
 Date: 2021-01-12
-Tags: Accounting, Software, Case Study
+Tags: Accounting, Software, Case Study, Netsuite, Sage
 Summary: One customers journey from Sage50 to Netsuite
 Image: pexels/pexels-negative-space-160107.jpg
 

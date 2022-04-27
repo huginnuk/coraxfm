@@ -1,6 +1,6 @@
 Title: Bookkeeing for Energy Usage  
 Date: 2022-04-18
-Tags: Accounting 
+Tags: Accounting, Gnucash
 Summary: How to show your enegy usage with bookkeeping 
 Image: origin/gnucash_energy.png
 
