@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Corax FM - Migrating from Sage to Netsuite</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+        
+        <link rel="stylesheet" href="./theme/css/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="./theme/css/spectre.min.css" />
+        <link rel="stylesheet" href="./theme/css/style.css" />
+
+    <link href="https://coraxfm.uk/feed.rss" type="application/atom+xml" rel="alternate" title="Corax FM Full Atom Feed" />
+
+
+
+    <meta name="tags" content="Accounting" />
+    <meta name="tags" content="Software" />
+    <meta name="tags" content="Case Study" />
+    <meta name="tags" content="Netsuite" />
+    <meta name="tags" content="Sage" />
+
+
+    <script src="https://swetrix.org/swetrix.js" defer></script>
+</head>
+
+<body id="index">
+
+    <div class="container">
+
+        <header class="navbar m-2">
+            <section class="navbar-section">
+                <a href="../" class="navbar-brand mr-2"><span class="text-primary text-large">Corax FM</span></a>
+            </section>
+
+            <section class="navbar-section">
+                <a class="btn btn-link bg-primary text-light hide-sm" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>        
+                    <a class="btn btn-link" href="./pages/about.html">About</a>
+                    <a class="btn btn-link" href="./pages/services.html">Services</a>
+                    <a class="btn btn-link" href="./pages/software.html">Software</a>
+                <a class="btn btn-link mr-2" href="../archives.html">Blog</a>
+                <a class="btn btn-link bg-success text-light hide-sm" href="../">Get A Quote</a>
+            </section>
+
+            <secion class="navbar-section show-sm">
+                <a class="btn btn-link bg-primary text-light" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>
+                <a class="btn btn-link bg-success text-light" href="../">Get A Quote</a>
+            </secion>
+        </header>
+
+
+        <div class="page-content">
+            
+            <div class="columns">
+                <div class="column hero col-12 bg-primary text-light">
+                    <div class="columns">
+                        <div class="column col-8 col-lg-10 col-md-12 col-mx-auto">
+
+<div class="columns">
+  <div class="column col-12 text-center">
+     <h1>Migrating from Sage to Netsuite</h1>
+    </div>
+</div>
+
+
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column col-12 bg-gray text-primary hero hero-sm">
+                    
+<div class="column col-8 col-sm-10 col-mx-auto">
+    <div class="columns">
+        <div class="column col-12">
+            <p>In early 2020, I migrated a client from <a href="https://www.sage.com/en-gb/products/sage-50cloud/">Sage50</a> to <a href="https://www.netsuite.com/portal/home.shtml">Oracle's Netsuite</a>. Read about how the project was implemented.</p>
+<h2>Background</h2>
+<p>The client is a fast growing organisation made up of several trading legal entities. The organisation was characterised by low value, high volume transactions. Sage50 was becoming a hinderence to good decision making and becoming onerous for the finance team.</p>
+<p>Each of the client's locations were operated under a separate legal entity. However, this was making reporting difficult in Sage as each legal entity has it's own instance of Sage. Creating consolidated accounts means exporting data out as a csv file and having some monster reporting spreadsheet. Because Sage treats each legal entity separately, the finance team were frequently having to log in and out of Sage to change companies.</p>
+<p>Sage50 can be backed up to the cloud, but does not offer a good hosted solution. This means that you need to have good, frequent backups. If you don't, it could go very wrong. Xero and Netsuite are both examples of cloud software, meaning that they are on the internet and someone else will back up the data. Sage50 cannot be used remotely, so can be difficult if there is a need for staff to work offsite.</p>
+<p>The client has lots of different sytems and pieces of software in use and wanted as many as possible to be automated. Sage50 doesn't relly have the capability to automate data entry. Various data can be imported, but these are manually done. It's better than nothing, but software like Xero and Nesuite are better options.</p>
+<p>The main criteria of the new software were:</p>
+<ul>
+<li>Consolidated accounts</li>
+<li>Strong reporting</li>
+<li>Scope for automation</li>
+<li>Off premises</li>
+</ul>
+<p>After looking at a number of different providers, the client settled on Netsuite being the right price and mix of the above criteria. Netsuite cannot be bought directly, it needs to be bought through a partner. I wil cover the alternatives in another post.</p>
+<h2>Results</h2>
+<p>Netsuite dramatically improved the reporting within the finance function. The implementation came in on time and within budget. The opening balance date was aligned to the end of a VAT quarter. Aligning to a year end wasn't feasible. Under these circumstances, one would normally have comparative trial balances for each month within the financial year and maybe some year end balances. The trial balance date was 31st Jan, with the year end being 31st Oct. So trial balances for Nov, Dec, and Jan would be the norm. However, we imported a trial balance for every month covering 7 years of trade for multiple legal entities.</p>
+<h3>Trial balances</h3>
+<p>Sage50 has the ability to export csv files containing data. It would not have been feasible to export each trial balance manually to cover the required time period. At least two entities had 7 years worth of data, this would mean exporting at least 170 trial balances. To get the Sage balances in the correct Netsuite format, I exported the data from Sage and wrote a small Python script to read the csv and write a new csv in the correct format for Netsuite. Once the script had been written, it could be run and re-run for any data tweeks before final import to Netsuite. The code took about half a day to write, but saved many hours of manipulating data in a spreadsheet.</p>
+<h3>Nominal codes</h3>
+<p>Sage50 has a four digit code to represent the nominal code, Netsuite is a bit more flexible. The client want to take the opportunity to revise some of the chart of accounts. The old chart of accounts was not consistent over the different Sage entities and was largely the standard chart of accounts that Sage provides. They wanted a consistent chart of accounts and something more fit for purpose. After designing a new chart of accounts, we creating a mapping table to map from the old codes to the new codes. This could then be read by the script above so that the trial balances used the new coding.</p>
+<h3>Automation</h3>
+<p>Due to the high volume, low vale of transactions, the client wanted to have sales imported from the EPOS system into the accounting software. Under Sage, this was done on a weekly basis. The EPOS software did not provide an API, so we wrote a script to crawl over the EPOS provider's back office website and generate an import file. I had previously written this script to generate an import for Sage, so was able to modify slightly to match Netsuite.</p>
+<p>Most of the companies bookings were made through an online customer portal. Deposists are taken and then redeemed through the EPOS when a customer is on site. As the deposts were non-refundable, the VAT point was the date of the deposit which complictes the book-keeping slightly. This service did provide an API, so I wrote a script to generate an import file for Netsuite.</p>
+<p>The last of the major integrations was for the client's purchasing system. The purchasing system held all orders, delivery notes, and invoices and did three-way matching. Once a day, the software would deposit a csv of invoices onto an FTP server. The integration for this was written by the third party provider as they had experience of this.</p>
+<p>These integrations were all run from an AWS EC2 instance specifically created for the purpose of hosting integrations. The EPOS and deposit automations were written in Python and run on a cronjob.</p>
+        </div>
+
+        <div class="column col-12">
+        <footer class="post-info text-left">
+            <time class="published" datetime="2021-01-12T00:00:00+00:00">
+              Tue 12 January 2021
+            </time>
+            <div class="tags">
+                Tags:
+                    <a href="./tag/accounting.html">Accounting</a>
+                    <a href="./tag/software.html">Software</a>
+                    <a href="./tag/case-study.html">Case Study</a>
+                    <a href="./tag/netsuite.html">Netsuite</a>
+                    <a href="./tag/sage.html">Sage</a>
+            </div>
+        </footer><!-- /.post-info -->
+    </div>
+</div>
+
+                                
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="hero hero-sm">
+            <div class="">
+                <a href="mailto:info@coraxfm.uk" class="btn btn-link">info@coraxfm.uk</a>
+                <a href="https://www.cimaglobal.com/About-us/Find-a-CIMA-Accountant/Tom-Lee-Gough-Accounting-13911/" class="btn btn-link">CIMA</a>
+                <a href="https://hermes.huginn.uk" class="btn btn-link">Hermes</a>
+                <a href="https://cosearch.huginn.uk" class="btn btn-link">Cosearch</a>
+                <a href="https://storyset.com/" class="btn btn-link">Storyset</a>
+                <a href="#" class="btn btn-link">TOP</a>
+            </div>
+
+            <!-- <p>&copy; 2017 - 2021 Tom Lee-Gough</p> -->
+        </footer>
+    </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialising the script with the Project ID
+    // you can find in the dashboard
+    swetrix.init('tQ4Waqjms8ss')
+
+    // Tracking page views
+    swetrix.trackViews()
+  })
+</script>
+
+<noscript>
+  <!--
+  Don't forget to change YOUR_PROJECT_ID in the link to your Project ID
+  -->
+  <img
+    src="https://api.swetrix.com/log/noscript?pid=tQ4Waqjms8ss"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  />
+</noscript>
+
+</body>
+
+</html>

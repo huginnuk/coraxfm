@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Corax FM - Export Your Xero Transactions to Use in any ERP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+        
+        <link rel="stylesheet" href="./theme/css/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="./theme/css/spectre.min.css" />
+        <link rel="stylesheet" href="./theme/css/style.css" />
+
+    <link href="https://coraxfm.uk/feed.rss" type="application/atom+xml" rel="alternate" title="Corax FM Full Atom Feed" />
+
+
+
+    <meta name="tags" content="Accounting" />
+    <meta name="tags" content="Software" />
+    <meta name="tags" content="Technology" />
+    <meta name="tags" content="Xero" />
+    <meta name="tags" content="ERP" />
+
+
+    <script src="https://swetrix.org/swetrix.js" defer></script>
+</head>
+
+<body id="index">
+
+    <div class="container">
+
+        <header class="navbar m-2">
+            <section class="navbar-section">
+                <a href="../" class="navbar-brand mr-2"><span class="text-primary text-large">Corax FM</span></a>
+            </section>
+
+            <section class="navbar-section">
+                <a class="btn btn-link bg-primary text-light hide-sm" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>        
+                    <a class="btn btn-link" href="./pages/about.html">About</a>
+                    <a class="btn btn-link" href="./pages/services.html">Services</a>
+                    <a class="btn btn-link" href="./pages/software.html">Software</a>
+                <a class="btn btn-link mr-2" href="../archives.html">Blog</a>
+                <a class="btn btn-link bg-success text-light hide-sm" href="../">Get A Quote</a>
+            </section>
+
+            <secion class="navbar-section show-sm">
+                <a class="btn btn-link bg-primary text-light" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>
+                <a class="btn btn-link bg-success text-light" href="../">Get A Quote</a>
+            </secion>
+        </header>
+
+
+        <div class="page-content">
+            
+            <div class="columns">
+                <div class="column hero col-12 bg-primary text-light">
+                    <div class="columns">
+                        <div class="column col-8 col-lg-10 col-md-12 col-mx-auto">
+
+<div class="columns">
+  <div class="column col-12 text-center">
+     <h1>Export Your Xero Transactions to Use in any ERP</h1>
+    </div>
+</div>
+
+
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column col-12 bg-gray text-primary hero hero-sm">
+                    
+<div class="column col-8 col-sm-10 col-mx-auto">
+    <div class="columns">
+        <div class="column col-12">
+            <p><a href="2021-01-03_accounting_systems.md">In this blog post</a>, I described the process of moving accounting systems. One of the important tasks is bringing over comparable balances. In your new accounting system, you will want to be able to view historical data, not just look at new data entered since go-live.</p>
+<p>Typically, a limited number of year end balances will be brought in. However, you can do better than that. In one migration, we prepared month end balances for several legal entites going back seven years. In another migration, we prepared month end balances for one legal entity for four years.</p>
+<p>Whilst this process would be hard and error prone if you were manipulating spreadsheets, it is pretty simple to do with Python. Most accounting systems have a way of exporting transaction data, whilst this would be too much detail, we have usually prepared month end balances so that there is something to compare.</p>
+<p>In Xero, going to <strong>Export Accounting Data</strong> within the <strong>Advanced Accounting</strong> menu (<a href="https://go.xero.com/Settings/AdvancedAccounting">link</a>) will give you a choice of formats to export. All of these are plain text, so will open in any text editor. Generally, I choose <em>Xero General Ledger (.txt)</em> as the format, as it seems to be the simplest, contain the most data, and be free of software specific quirks. </p>
+<p><img src="images/origin/xero_export.png" class="border img-responsive" alt="Xero data export screen"></p>
+<p>Reading this file in Python is super easy.</p>
+<pre>
+xero_export = 'DemoCompany(UK)_XERO_GL_2022_APR_27.txt'
+with open(xero_export, 'r') as input_file:
+    csv_reader = csv.reader(input_file, delimeter='\t')
+    next(csv_reader)
+    for row in csv_reader:
+        # do stuff to the rows
+</pre>
+
+<p>Once the data has been exported, it can then be arranged into a format to suit Netsuite, Dynamics, or even Sage50. The general process is that the script will aggregate the value of each nominal code for each month end. Once the files have been read, you will end up with a JSON object that looks something like:</p>
+<pre>
+{
+    month_end_0: {
+        sales_nominal: -500,
+        expense_nominal: 200,
+        assets_nominal: 1000,
+        liabilities_nominal: -600,
+        captial_nominal: -100
+    },
+    month_end_1: {
+        sales_nominal: -700,
+        expense_nominal: 350,
+        assets_nominal: 1200,
+        liabilities_nominal: -750,
+        captial_nominal: -100
+    }
+}
+</pre>
+
+<p>After that, you can loop through the object and create your csv to import the balances. I will cover the details in another post.</p>
+        </div>
+
+        <div class="column col-12">
+        <footer class="post-info text-left">
+            <time class="published" datetime="2022-04-27T00:00:00+01:00">
+              Wed 27 April 2022
+            </time>
+            <div class="tags">
+                Tags:
+                    <a href="./tag/accounting.html">Accounting</a>
+                    <a href="./tag/software.html">Software</a>
+                    <a href="./tag/technology.html">Technology</a>
+                    <a href="./tag/xero.html">Xero</a>
+                    <a href="./tag/erp.html">ERP</a>
+            </div>
+        </footer><!-- /.post-info -->
+    </div>
+</div>
+
+                                
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="hero hero-sm">
+            <div class="">
+                <a href="mailto:info@coraxfm.uk" class="btn btn-link">info@coraxfm.uk</a>
+                <a href="https://www.cimaglobal.com/About-us/Find-a-CIMA-Accountant/Tom-Lee-Gough-Accounting-13911/" class="btn btn-link">CIMA</a>
+                <a href="https://hermes.huginn.uk" class="btn btn-link">Hermes</a>
+                <a href="https://cosearch.huginn.uk" class="btn btn-link">Cosearch</a>
+                <a href="https://storyset.com/" class="btn btn-link">Storyset</a>
+                <a href="#" class="btn btn-link">TOP</a>
+            </div>
+
+            <!-- <p>&copy; 2017 - 2021 Tom Lee-Gough</p> -->
+        </footer>
+    </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialising the script with the Project ID
+    // you can find in the dashboard
+    swetrix.init('tQ4Waqjms8ss')
+
+    // Tracking page views
+    swetrix.trackViews()
+  })
+</script>
+
+<noscript>
+  <!--
+  Don't forget to change YOUR_PROJECT_ID in the link to your Project ID
+  -->
+  <img
+    src="https://api.swetrix.com/log/noscript?pid=tQ4Waqjms8ss"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  />
+</noscript>
+
+</body>
+
+</html>

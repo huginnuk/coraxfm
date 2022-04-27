@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Corax FM - Python Basics</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+        
+        <link rel="stylesheet" href="./theme/css/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="./theme/css/spectre.min.css" />
+        <link rel="stylesheet" href="./theme/css/style.css" />
+
+    <link href="https://coraxfm.uk/feed.rss" type="application/atom+xml" rel="alternate" title="Corax FM Full Atom Feed" />
+
+
+
+    <meta name="tags" content="Python" />
+    <meta name="tags" content="Software" />
+    <meta name="tags" content="Technology" />
+
+
+    <script src="https://swetrix.org/swetrix.js" defer></script>
+</head>
+
+<body id="index">
+
+    <div class="container">
+
+        <header class="navbar m-2">
+            <section class="navbar-section">
+                <a href="../" class="navbar-brand mr-2"><span class="text-primary text-large">Corax FM</span></a>
+            </section>
+
+            <section class="navbar-section">
+                <a class="btn btn-link bg-primary text-light hide-sm" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>        
+                    <a class="btn btn-link" href="./pages/about.html">About</a>
+                    <a class="btn btn-link" href="./pages/services.html">Services</a>
+                    <a class="btn btn-link" href="./pages/software.html">Software</a>
+                <a class="btn btn-link mr-2" href="../archives.html">Blog</a>
+                <a class="btn btn-link bg-success text-light hide-sm" href="../">Get A Quote</a>
+            </section>
+
+            <secion class="navbar-section show-sm">
+                <a class="btn btn-link bg-primary text-light" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>
+                <a class="btn btn-link bg-success text-light" href="../">Get A Quote</a>
+            </secion>
+        </header>
+
+
+        <div class="page-content">
+            
+            <div class="columns">
+                <div class="column hero col-12 bg-primary text-light">
+                    <div class="columns">
+                        <div class="column col-8 col-lg-10 col-md-12 col-mx-auto">
+
+<div class="columns">
+  <div class="column col-12 text-center">
+     <h1>Python Basics</h1>
+    </div>
+</div>
+
+
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column col-12 bg-gray text-primary hero hero-sm">
+                    
+<div class="column col-8 col-sm-10 col-mx-auto">
+    <div class="columns">
+        <div class="column col-12">
+            <p>In some future posts, I will make worked examples of API interactions and some automations. My preferred programming language is <a href="https://python.org">Python</a>. I cannot remember why I chose to learn Python, but it was pretty strightforward to pick up. I initially learned about coding when recording macros within Excel, then trying to improve them by writing the VBA (Visual Basic). In this post, I will cover some of the basic concepts that I will use in later posts.</p>
+<p>I won't cover installing Python or running Python on your system. There are lots of tutorials and guides out there and that's part of the fun of learning a new programming language. For reference, I mostly use Debian (operating system) and Python 3.</p>
+<h2>General</h2>
+<p>Python uses whitespace to separate out code. Broadly, one piece of logic per line is best. It makes it easier to understand.</p>
+<p>Python also uses indents to group code together:</p>
+<div class="highlight"><pre><span></span><code>def some_function(i):
+    does something to i
+    returns result
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nv">def</span> <span class="nv">another_function</span><span class="ss">(</span><span class="nv">a</span><span class="ss">)</span>:
+    <span class="nv">this</span> <span class="nv">function</span> <span class="nv">is</span> <span class="nv">different</span> <span class="nv">to</span> <span class="nv">above</span>
+    <span class="k">return</span> <span class="nb">result</span>
+</code></pre></div>
+
+<h2>Variables</h2>
+<p>Any one that has taken GCSE maths would have come across variables. It's not a popular subject, but algebra is all variables. A variable is a container. In algebra it is a number, in programming it can be anything. For example, the formula <em>Y = X<sup>2</sup> + 4</em> both <strong>Y</strong> and <strong>X</strong> are variables. To plot a graph of <strong>Y</strong>, you would plug values into <strong>X</strong> and solve for <strong>Y</strong>.</p>
+<p>Here's how you can assign a variable in Python:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># assign a string to a variable called &quot;name&quot;</span><span class="w"></span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;guitar&#39;</span><span class="w"></span>
+<span class="c1"># assign a number to a variable</span><span class="w"></span>
+<span class="n">strings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="w"></span>
+<span class="c1"># assign a list to a variable</span><span class="w"></span>
+<span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;electric&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;acoustic&#39;</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+
+<h2>Arrays</h2>
+<p>An array is a collection of data. Python has several types. I mainly use lists and dicts.</p>
+<h3>Lists</h3>
+<p>Lists are pretty simple. A list is a series of items that are separated by commas within square brackets. They can contain any data types, and can be mixed.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># list of strings</span><span class="w"></span>
+<span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;this&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;is&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">]</span><span class="w"></span>
+<span class="c1"># list of numbers</span><span class="w"></span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4.5</span><span class="p">,</span><span class="w"> </span><span class="mf">6.7</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
+<span class="c1"># list of variables</span><span class="w"></span>
+<span class="p">[</span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">second</span><span class="p">,</span><span class="w"> </span><span class="n">third</span><span class="p">]</span><span class="w"></span>
+<span class="c1"># mix list</span><span class="w"></span>
+<span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+
+<h3>Dicts / JSON</h3>
+<p>A dict (or dictionary) is a more comprevensive data item. The syntax is reasonably easy to understand, and features heavily when dealing with API. Javascript has a similar array type called JSON (JavaScript Object Notation). Many API will return a JSON object for you to use.</p>
+<p>Again, dicts can hold all different types of data. However, the most interesting part of a dict is that each data item has a key. The key refers to the data stored. A dict is how one might intuitively think of a database record. Of course, you can have lists of dicts.</p>
+<p>Not all dicts in a list have to have the same keys, but it is useful if they do.</p>
+<div class="highlight"><pre><span></span><code>books = [
+    {
+        &#39;title&#39;: &#39;1984&#39;,
+        &#39;author&#39;: &#39;George Orwell&#39;
+    },
+    {
+        &#39;title&#39;: &#39;Brave New World&#39;,
+        &#39;author&#39;: &#39;Aldous Huxley&#39;
+    }
+]
+</code></pre></div>
+
+<h2>Functions</h2>
+<p>A function is an action that you regularly perform within a script. This saves you time in your code, as you only have to write the thing once. There are lots of built in functions in Python, you will definitely write your own.</p>
+<p>Using the formula from above, we could write it as a function:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">def</span> <span class="nv">solve_y</span><span class="ss">(</span><span class="nv">x</span><span class="ss">)</span>:
+    <span class="nv">y</span> <span class="o">=</span> <span class="ss">(</span><span class="nv">x</span> <span class="o">*</span> <span class="nv">x</span><span class="ss">)</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="k">return</span> <span class="nv">y</span>
+</code></pre></div>
+
+<p>Functions start <em>def</em> then the name of the function followed by brackets and a colon. In the example we can pass a number to the function and the function performs the action. The "return" part means that the function will give the result of the function back. This can be assigned to a variable or something else.</p>
+<p>Here are some results for our function:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; solve_y(4)
+20
+&gt;&gt;&gt; solve_y(2)
+8
+</code></pre></div>
+
+<p>Our <em>solve_y</em> function can be writted using the in-built power function. It raises any number to the power of another number:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">def</span> <span class="nv">solve_y</span><span class="ss">(</span><span class="nv">x</span><span class="ss">)</span>:
+    <span class="nv">y</span> <span class="o">=</span> <span class="nv">pow</span><span class="ss">(</span><span class="nv">x</span>, <span class="mi">2</span><span class="ss">)</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="k">return</span> <span class="nv">y</span>
+</code></pre></div>
+
+<p>In our particular case, it doesn't really make it a lot simpler. However, it a bit clearer from a BODMAS point of view.</p>
+<h3>For Loop</h3>
+<p><strong>For loops</strong> are used lots. A for loop iterates over an item, assigning each of results to a variable. It's kind of hard for non-programmers to get your head around, however, it very powerful. Here are some examples:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">5</span><span class="ss">)</span>:
+...     <span class="nv">i</span>
+... 
+<span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+</code></pre></div>
+
+<p><strong>range(x)</strong> is a function that returns numbers incremented by 1. The range function starts at 0 by default and will count the number of items. Our for loop will assign the result of the range function to the variable i. This is then displayed on the screen.</p>
+        </div>
+
+        <div class="column col-12">
+        <footer class="post-info text-left">
+            <time class="published" datetime="2021-01-31T00:00:00+00:00">
+              Sun 31 January 2021
+            </time>
+            <div class="tags">
+                Tags:
+                    <a href="./tag/python.html">Python</a>
+                    <a href="./tag/software.html">Software</a>
+                    <a href="./tag/technology.html">Technology</a>
+            </div>
+        </footer><!-- /.post-info -->
+    </div>
+</div>
+
+                                
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="hero hero-sm">
+            <div class="">
+                <a href="mailto:info@coraxfm.uk" class="btn btn-link">info@coraxfm.uk</a>
+                <a href="https://www.cimaglobal.com/About-us/Find-a-CIMA-Accountant/Tom-Lee-Gough-Accounting-13911/" class="btn btn-link">CIMA</a>
+                <a href="https://hermes.huginn.uk" class="btn btn-link">Hermes</a>
+                <a href="https://cosearch.huginn.uk" class="btn btn-link">Cosearch</a>
+                <a href="https://storyset.com/" class="btn btn-link">Storyset</a>
+                <a href="#" class="btn btn-link">TOP</a>
+            </div>
+
+            <!-- <p>&copy; 2017 - 2021 Tom Lee-Gough</p> -->
+        </footer>
+    </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialising the script with the Project ID
+    // you can find in the dashboard
+    swetrix.init('tQ4Waqjms8ss')
+
+    // Tracking page views
+    swetrix.trackViews()
+  })
+</script>
+
+<noscript>
+  <!--
+  Don't forget to change YOUR_PROJECT_ID in the link to your Project ID
+  -->
+  <img
+    src="https://api.swetrix.com/log/noscript?pid=tQ4Waqjms8ss"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  />
+</noscript>
+
+</body>
+
+</html>

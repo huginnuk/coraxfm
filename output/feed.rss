@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Corax FM</title><link href="https://coraxfm.uk/" rel="alternate"></link><link href="https://coraxfm.uk/feed.rss" rel="self"></link><id>https://coraxfm.uk/</id><updated>2022-04-27T00:00:00+01:00</updated><entry><title>Export Your Xero Transactions to Use in any ERP</title><link href="https://coraxfm.uk/export-your-xero-transactions-to-use-in-any-erp.html" rel="alternate"></link><published>2022-04-27T00:00:00+01:00</published><updated>2022-04-27T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2022-04-27:/export-your-xero-transactions-to-use-in-any-erp.html</id><summary type="html">&lt;p&gt;Moving to an ERP? Here's how to export your Xero balances.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="2021-01-03_accounting_systems.md"&gt;In this blog post&lt;/a&gt;, I described the process of moving accounting systems. One of the important tasks is bringing over comparable balances. In your new accounting system, you will want to be able to view historical data, not just look at new data entered since go-live.&lt;/p&gt;
+&lt;p&gt;Typically, a limited number of year end balances will be brought in. However, you can do better than that. In one migration, we prepared month end balances for several legal entites going back seven years. In another migration, we prepared month end balances for one legal entity for four years.&lt;/p&gt;
+&lt;p&gt;Whilst this process would be hard and error prone if you were manipulating spreadsheets, it is pretty simple to do with Python. Most accounting systems have a way of exporting transaction data, whilst this would be too much detail, we have usually prepared month end balances so that there is something to compare.&lt;/p&gt;
+&lt;p&gt;In Xero, going to &lt;strong&gt;Export Accounting Data&lt;/strong&gt; within the &lt;strong&gt;Advanced Accounting&lt;/strong&gt; menu (&lt;a href="https://go.xero.com/Settings/AdvancedAccounting"&gt;link&lt;/a&gt;) will give you a choice of formats to export. All of these are plain text, so will open in any text editor. Generally, I choose &lt;em&gt;Xero General Ledger (.txt)&lt;/em&gt; as the format, as it seems to be the simplest, contain the most data, and be free of software specific quirks. &lt;/p&gt;
+&lt;p&gt;&lt;img src="images/origin/xero_export.png" class="border img-responsive" alt="Xero data export screen"&gt;&lt;/p&gt;
+&lt;p&gt;Reading this file in Python is super easy.&lt;/p&gt;
+&lt;pre&gt;
+xero_export = 'DemoCompany(UK)_XERO_GL_2022_APR_27.txt'
+with open(xero_export, 'r') as input_file:
+    csv_reader = csv.reader(input_file, delimeter='\t')
+    next(csv_reader)
+    for row in csv_reader:
+        # do stuff to the rows
+&lt;/pre&gt;
+
+&lt;p&gt;Once the data has been exported, it can then be arranged into a format to suit Netsuite, Dynamics, or even Sage50. The general process is that the script will aggregate the value of each nominal code for each month end. Once the files have been read, you will end up with a JSON object that looks something like:&lt;/p&gt;
+&lt;pre&gt;
+{
+    month_end_0: {
+        sales_nominal: -500,
+        expense_nominal: 200,
+        assets_nominal: 1000,
+        liabilities_nominal: -600,
+        captial_nominal: -100
+    },
+    month_end_1: {
+        sales_nominal: -700,
+        expense_nominal: 350,
+        assets_nominal: 1200,
+        liabilities_nominal: -750,
+        captial_nominal: -100
+    }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;After that, you can loop through the object and create your csv to import the balances. I will cover the details in another post.&lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category><category term="Software"></category><category term="Technology"></category><category term="Xero"></category><category term="ERP"></category></entry><entry><title>Bookkeeing for Energy Usage</title><link href="https://coraxfm.uk/bookkeeing-for-energy-usage.html" rel="alternate"></link><published>2022-04-18T00:00:00+01:00</published><updated>2022-04-18T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2022-04-18:/bookkeeing-for-energy-usage.html</id><summary type="html">&lt;p&gt;How to show your enegy usage with bookkeeping&lt;/p&gt;</summary><content type="html">&lt;p&gt;On &lt;a href="https://fosstodon.org/"&gt;Fosstodon&lt;/a&gt;, someone was asking about how they could use their bookkeeping software to record their energy usage. One could use a spreadsheet, which might be a bit more meaningful, however, let's look at using the bookkeeping.&lt;/p&gt;
+&lt;p&gt;Before I continue, how I suggest to do the bookkeeping does not comply with any accounting standards, so do not attempt to incorporate it into your exisiting accounts. I would recommend maintaining a separate set of books.&lt;/p&gt;
+&lt;p&gt;Bookkeeping can be used to measure anything. So long as the thing can be measured, it can be measured using a ledger. Accounting software offers a convenient way of recording movements of data.&lt;/p&gt;
+&lt;p&gt;Energy can be thought of in terms of the actual energy used (which is what this individual wanted) or in terms of the monetary value of the usage. Under most circumstances the monetary value is what is important. Typically in the UK, the cash movement is spread over the whole year, as the actual usage is much higher over the winter months.&lt;/p&gt;
+&lt;p&gt;The bookkeeping might look like (BS = balance sheet, IS = income statement):&lt;/p&gt;
+&lt;p&gt;Cash Monthly Direct Debit:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Action&lt;/th&gt;
+&lt;th&gt;Nominal&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Unit&lt;/th&gt;
+&lt;th align="right"&gt;DR&lt;/th&gt;
+&lt;th align="right"&gt;CR&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CR&lt;/td&gt;
+&lt;td&gt;BS&lt;/td&gt;
+&lt;td&gt;Cash&lt;/td&gt;
+&lt;td&gt;£&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;I&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DR&lt;/td&gt;
+&lt;td&gt;BS&lt;/td&gt;
+&lt;td&gt;Payables&lt;/td&gt;
+&lt;td&gt;£&lt;/td&gt;
+&lt;td align="right"&gt;I&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Payables Invoice:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Action&lt;/th&gt;
+&lt;th&gt;Nominal&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Unit&lt;/th&gt;
+&lt;th align="right"&gt;DR&lt;/th&gt;
+&lt;th align="right"&gt;CR&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CR&lt;/td&gt;
+&lt;td&gt;BS&lt;/td&gt;
+&lt;td&gt;Payables&lt;/td&gt;
+&lt;td&gt;£&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;J&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DR&lt;/td&gt;
+&lt;td&gt;IS&lt;/td&gt;
+&lt;td&gt;Energy Usage&lt;/td&gt;
+&lt;td&gt;£&lt;/td&gt;
+&lt;td align="right"&gt;J&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Ideally, the invoices for the energy would match whatever your reporting period is. However, this is the monetary value, not the actual usage. To record actual usage the bookkeeping would be:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Action&lt;/th&gt;
+&lt;th&gt;Nominal&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Unit&lt;/th&gt;
+&lt;th align="right"&gt;DR&lt;/th&gt;
+&lt;th align="right"&gt;CR&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;DR&lt;/td&gt;
+&lt;td&gt;IS&lt;/td&gt;
+&lt;td&gt;Water&lt;/td&gt;
+&lt;td&gt;m^3&lt;/td&gt;
+&lt;td align="right"&gt;X&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CR&lt;/td&gt;
+&lt;td&gt;BS&lt;/td&gt;
+&lt;td&gt;Water&lt;/td&gt;
+&lt;td&gt;m^3&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;-X&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DR&lt;/td&gt;
+&lt;td&gt;IS&lt;/td&gt;
+&lt;td&gt;Gas&lt;/td&gt;
+&lt;td&gt;m^3&lt;/td&gt;
+&lt;td align="right"&gt;Y&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CR&lt;/td&gt;
+&lt;td&gt;BS&lt;/td&gt;
+&lt;td&gt;Gas&lt;/td&gt;
+&lt;td&gt;m^3&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;-Y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DR&lt;/td&gt;
+&lt;td&gt;IS&lt;/td&gt;
+&lt;td&gt;Elec&lt;/td&gt;
+&lt;td&gt;kWh&lt;/td&gt;
+&lt;td align="right"&gt;Z&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CR&lt;/td&gt;
+&lt;td&gt;BS&lt;/td&gt;
+&lt;td&gt;Elec&lt;/td&gt;
+&lt;td&gt;kWh&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;-Z&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Assuming a monthly reporting period, I would take a meter reading on the last day of the month, then reverse this value on the first day of the next month. This would mean that on a period by period basis, the income statement would show the flows of energy. For example, the water income statement would show:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Date&lt;/th&gt;
+&lt;th align="right"&gt;DR&lt;/th&gt;
+&lt;th align="right"&gt;CR&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Jan 31&lt;/td&gt;
+&lt;td align="right"&gt;1000&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Feb 01&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;-1000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Feb 29&lt;/td&gt;
+&lt;td align="right"&gt;1200&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Mar 01&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;-1200&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Mar 31&lt;/td&gt;
+&lt;td align="right"&gt;1350&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Apr 01&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;td align="right"&gt;-1350&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Apr 30&lt;/td&gt;
+&lt;td align="right"&gt;1600&lt;/td&gt;
+&lt;td align="right"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;br&gt;
+Screenshow from entries in Gnucash:
+&lt;img src="images/origin/gnucash_energy_entries.png" class="border img-responsive" alt="Energy Double Entry in GNUCash"&gt;&lt;/p&gt;
+&lt;p&gt;The income statement would then show the usage as:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Period&lt;/th&gt;
+&lt;th align="right"&gt;Usage (m^3)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Feb&lt;/td&gt;
+&lt;td align="right"&gt;200&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Mar&lt;/td&gt;
+&lt;td align="right"&gt;150&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Apr&lt;/td&gt;
+&lt;td align="right"&gt;250&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;br&gt;
+Gnucash Income statement:
+&lt;img src="images/origin/gnucash_energy.png" class="border img-responsive" alt="Energy Income Statement in GNUCash"&gt;&lt;/p&gt;
+&lt;p&gt;As long as there were different nominal codes for each utility, an income statement would show you the usage for a given period. However, this does not mean that these numbers would be comparable. Water, Gas, and Electricity are all sold in different units and are measured differently. To get a more comprehensive system, you would want to look to foreign currency accounting.&lt;/p&gt;
+&lt;p&gt;In foreign currency accounting, your functional currency is the currency which you report in and the main currency that your business uses. Balances are translated at the reporting date, flows are translated at the transaction date. Any differences due to exchange rate hit the income statement. Many difference accounting software packages have &lt;strong&gt;realised&lt;/strong&gt; and &lt;strong&gt;unrealised&lt;/strong&gt; gains or losses. Realised are actualy profits or losses that have a cash impact, unrealised are still potential movements.&lt;/p&gt;
+&lt;p&gt;The foreign currency solution to this would be to use the price that your energy supplier charges as the "exchange rate", and translate the balances and flows according to the new rates. Gas usage is made substantailly more difficult as it recorded in m^3, however, it is sold in kilowatt-hours (kWh). And the conversion rate changes frequently.&lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category><category term="Gnucash"></category></entry><entry><title>Why do you need a Virtual Finance Director?</title><link href="https://coraxfm.uk/why-do-you-need-a-virtual-finance-director.html" rel="alternate"></link><published>2021-10-03T00:00:00+01:00</published><updated>2021-10-03T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2021-10-03:/why-do-you-need-a-virtual-finance-director.html</id><summary type="html">&lt;p&gt;Why you need a Virtual Finance Director&lt;/p&gt;</summary><content type="html">&lt;p&gt;Whether you call it a Finance Director (FD) or a Chief Finance Officer (CFO), you need someone doing this role in your business - here's why.&lt;/p&gt;
+&lt;p&gt;Most businesses have a bookkeeper or two, and have external accountants doing the annual accounts and your tax return. So why do you need a finance director? Afterall, you created your business. You're the one keeping an eye on the profitability of your company, and no-one knows it better than you.&lt;/p&gt;
+&lt;p&gt;Let's look at what bookkeepers and external accountants do. Bookkeepers are an essential admin role in the business: they process invoices, chase debt, pay suppliers, maybe do some payroll, the list goes on. Often times though, the amount that a bookkeeper can advise or analyse data is limited as they spend the bulk of their time performing administrative tasks. It's not really their job to provide robust analyses. The question for bookkeepers is whether or not something is &lt;em&gt;accurate&lt;/em&gt; not if it is &lt;em&gt;relevant&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;External accountants primary purpose is to prepare year-end, or statutory, accounts. Their remit is not to comment on how well or not your company is doing, it is to make sure that you are compliant. Again, it is &lt;em&gt;accuracy&lt;/em&gt; over &lt;em&gt;relevance&lt;/em&gt;. Accountants have special wording in the accounts, that specifically states, they are only preparing the accounts for your benefit. They are not passing any judgement. A firm of accountants &lt;em&gt;might&lt;/em&gt; make some observations about your accounts, but the relevance of that is likely to be low. If your company is like most others, the year-end accounts are filed several months after the year end. Which is &lt;em&gt;far&lt;/em&gt; too late to do anything about it.&lt;/p&gt;
+&lt;p&gt;A finance director has a different skill set and can tell you how you can improve your company's performance. Whilst accuracy is important, &lt;em&gt;relevance&lt;/em&gt; is given a lot more emphasis. Management accounts are &lt;em&gt;"the production of timely and relevant information."&lt;/em&gt; A finance director can help guide your existing staff to create better accounts, quicker, and help you make better decisions. Companies exist only exist for one reason: to make money. Making money can be measured in different ways, but the most important is cash. If your cash is going up, that means that you're making money! A virtual finance director can help you make sure the cash keeps going up.&lt;/p&gt;
+&lt;p&gt;Try this out: take a look at your most recent accounts, preferably management accounts as these will be more detailed and up to date. Take your profit before interest, tax, and depreciation (EBITDA) - this is the amount of cash your business should have generated. Now take your cash and the start and cash at the end of the same period. Compare the two figures.&lt;/p&gt;
+&lt;p&gt;If your EBITDA is lower than the change in cash, then great! You've converted some of your balance sheet into cash.&lt;/p&gt;
+&lt;p&gt;If your EBITDA is higher than the change in cash, then there is some money being "lost" along the way. Maybe your debtors are up, that means you've made sales but not been paid. Creditors down? Then you've paid off suppliers. Stock up? You've been building stock levels. Some combination of all three? You might need to look at your credit terms with suppliers and customers, and look at why your stock is increasing. &lt;/p&gt;
+&lt;p&gt;A finance director can help you identify where the cash is going, and what you need to do about it. A full-time finance director is likely to be out of budget for you. That's where a Vitrual FD comes in. Having someone who understands how the different bits of finance interact, whilst still being able to pay for themselves. A Virtual FD should be seen as an investment not a business cost.&lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category><category term="Finance Director"></category><category term="FD"></category><category term="Chief Finance Officer"></category><category term="CFO"></category></entry><entry><title>Accounting Database Design</title><link href="https://coraxfm.uk/accounting-database-design.html" rel="alternate"></link><published>2021-07-27T00:00:00+01:00</published><updated>2021-07-27T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2021-07-27:/accounting-database-design.html</id><summary type="html">&lt;p&gt;Database choices in accounting software&lt;/p&gt;</summary><content type="html">&lt;p&gt;Over the past few years, I have been developing my own accounting software &lt;a href="https://hermes.dev.huginn.uk"&gt;Hermes&lt;/a&gt;. It has primarily been so that I can learn how to write software, but in an area where I know what the end product should look like. It's been an interesting process thinking about how the data interacts and what the structure should be.&lt;/p&gt;
+&lt;p&gt;Double entry book-keeping is great. It makes it easy to have some in-built checks in your database. However, that doesn't automatically translate into some good database design. When I say "good database design", I mean that I had issues trying to make a pure double-entry system work in my database. I don't mean good from the point of view of best practice.&lt;/p&gt;
+&lt;p&gt;When I first wrote Hermes, I wasn't sure what type of organisation or individual I was writing for. So I created a double-entry adjacent system. Every entry had to have an entry in a bank account. It was double entry in the sense that there were always to entries, but it wasn't particularly flexible. I was trying to mimic my workflow in Gnucash. Basically, I would import my bank statements and code the transactions from there. I think that some other software, &lt;a href="https://akaunting.com/"&gt;Akaunting&lt;/a&gt;, used this method too. I've not looked at Akaunting for a number of years now, so things might have changed.&lt;/p&gt;
+&lt;p&gt;What I really wanted in a database was a table that listed all of the transactions in a single table. It might looks something like this:&lt;/p&gt;
+&lt;table class=""&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Date&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+        &lt;th&gt;Nominal&lt;/th&gt;
+        &lt;th&gt;DR&lt;/th&gt;
+        &lt;th&gt;CR&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2021-07-01&lt;/td&gt;
+        &lt;td&gt;Spend Money&lt;/td&gt;
+        &lt;td&gt;Bank&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;50&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2021-07-01&lt;/td&gt;
+        &lt;td&gt;Spend Money&lt;/td&gt;
+        &lt;td&gt;Petrol&lt;/td&gt;
+        &lt;td&gt;40&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2021-07-01&lt;/td&gt;
+        &lt;td&gt;Spend Money&lt;/td&gt;
+        &lt;td&gt;Snacks&lt;/td&gt;
+        &lt;td&gt;10&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2021-06-30&lt;/td&gt;
+        &lt;td&gt;June Salary&lt;/td&gt;
+        &lt;td&gt;Salary&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;2000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2021-06-30&lt;/td&gt;
+        &lt;td&gt;June Salary&lt;/td&gt;
+        &lt;td&gt;Bank&lt;/td&gt;
+        &lt;td&gt;2000&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;This is pretty easy to follow. However, the problem that I had with something like this is that if you had multiple bank accounts, anf you wanted to find the balancing transactions, it would be very hard. Sage50 has a transactions screen, where it lists all of the transactions, I was drawing some inspriation from there.&lt;/p&gt;
+&lt;p&gt;Gnucash is a fully double entry system. It separates out a journal into two parts: transaction and splits. The transaction element contains things that are common: the description, date, and currency. Where the splits contain the value, the account (nominal), and the line description. I did think that this was too complex, but now I understand why it was done that way. You can have a double entry system, and in the database, make a select on the splits to find the opposite entries.&lt;/p&gt;
+&lt;p&gt;After having a break from Hermes, and a think about the database design, I refactored Hermes to the Gnucash model. Having transactions and splits. &lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category></entry><entry><title>The Goal</title><link href="https://coraxfm.uk/the-goal.html" rel="alternate"></link><published>2021-04-11T00:00:00+01:00</published><updated>2021-04-11T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2021-04-11:/the-goal.html</id><summary type="html">&lt;p&gt;The Goal; Goldratt (1984)&lt;/p&gt;</summary><content type="html">&lt;p&gt;I'm aware that I am a little late to the party. For those who don't know, The Goal was is an business novel, published in 1984. The Goal is relatively short and easy reading, which makes it pretty accessible. You will be able to pick up the concepts and themes without a strong cost accounting background.&lt;/p&gt;
+&lt;p&gt;The Goal follows Alex, a plant manager whose plant is in trouble. He meets with an old college tutor who guides him through saving his plant and marriage. The book outlines Goldratt's Theory of Constraints (TOC), which is covered very briefly in the CIMA accounting qualification. The idea behind TOC is that you identify the goal of the organisation (to make money), then align all the processes around doing that. Which seems pretty obvious.&lt;/p&gt;
+&lt;p&gt;I first read The Goal in 2012, as I was about to start a job in a manufacturing organisation. My new boss recommended I read it to get a little background to the challenges with cost accounting. I enjoyed it at the time and have just finished re-reading it, and it has raised a whole bunch of questions for me.&lt;/p&gt;
+&lt;p&gt;The thing that really struggled with was Goldratt's critique of cost accounting. There is a scene where two characters are talking about stock, they both agree that stock is a liability, but it appears on the balance sheet as an asset. I had to think a lot about that to understand it.&lt;/p&gt;
+&lt;p&gt;In non-manufacturing organisations the stock value is creating by debiting stock and crediting cash. You literally spend money to have stock to sell. It is really important not to have too much stock as it can easily swallow cash. In manufacturing organisations the book-keeping is debit stock, credit profit and loss. The credit to profit and loss is known as &lt;em&gt;transfers to inventory&lt;/em&gt;. The transfers to inventory happen at standard cost, which is a budget cost of producing whatever the product is.&lt;/p&gt;
+&lt;p&gt;Goldratt's argument against cost accounting disputes what should be included in the standard cost versus what is a period cost to be borne by the organisation. He states that only the material cost should be included. Typically, cost accounting includes overheads, labour, depreciation, and a lot else. I am inclined to agree with Goldratt, but I think that the accounting standards say otherwise.&lt;/p&gt;
+&lt;p&gt;I would highly recommend reading The Goal. It gives a good insight into cost accounting and running an organisation, and doesn't seem too dated, given that it is not far off 40 years old. I think that a lot of the problems that are discussed and characters encountered are still around now. &lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category></entry><entry><title>Python Basics</title><link href="https://coraxfm.uk/python-basics.html" rel="alternate"></link><published>2021-01-31T00:00:00+00:00</published><updated>2021-01-31T00:00:00+00:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2021-01-31:/python-basics.html</id><summary type="html">&lt;p&gt;Basic Python concepts&lt;/p&gt;</summary><content type="html">&lt;p&gt;In some future posts, I will make worked examples of API interactions and some automations. My preferred programming language is &lt;a href="https://python.org"&gt;Python&lt;/a&gt;. I cannot remember why I chose to learn Python, but it was pretty strightforward to pick up. I initially learned about coding when recording macros within Excel, then trying to improve them by writing the VBA (Visual Basic). In this post, I will cover some of the basic concepts that I will use in later posts.&lt;/p&gt;
+&lt;p&gt;I won't cover installing Python or running Python on your system. There are lots of tutorials and guides out there and that's part of the fun of learning a new programming language. For reference, I mostly use Debian (operating system) and Python 3.&lt;/p&gt;
+&lt;h2&gt;General&lt;/h2&gt;
+&lt;p&gt;Python uses whitespace to separate out code. Broadly, one piece of logic per line is best. It makes it easier to understand.&lt;/p&gt;
+&lt;p&gt;Python also uses indents to group code together:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;def some_function(i):
+    does something to i
+    returns result
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;def&lt;/span&gt; &lt;span class="nv"&gt;another_function&lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;a&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;:
+    &lt;span class="nv"&gt;this&lt;/span&gt; &lt;span class="nv"&gt;function&lt;/span&gt; &lt;span class="nv"&gt;is&lt;/span&gt; &lt;span class="nv"&gt;different&lt;/span&gt; &lt;span class="nv"&gt;to&lt;/span&gt; &lt;span class="nv"&gt;above&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;result&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Variables&lt;/h2&gt;
+&lt;p&gt;Any one that has taken GCSE maths would have come across variables. It's not a popular subject, but algebra is all variables. A variable is a container. In algebra it is a number, in programming it can be anything. For example, the formula &lt;em&gt;Y = X&lt;sup&gt;2&lt;/sup&gt; + 4&lt;/em&gt; both &lt;strong&gt;Y&lt;/strong&gt; and &lt;strong&gt;X&lt;/strong&gt; are variables. To plot a graph of &lt;strong&gt;Y&lt;/strong&gt;, you would plug values into &lt;strong&gt;X&lt;/strong&gt; and solve for &lt;strong&gt;Y&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Here's how you can assign a variable in Python:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# assign a string to a variable called &amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;guitar&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="c1"&gt;# assign a number to a variable&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;strings&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="c1"&gt;# assign a list to a variable&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;types&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;electric&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;acoustic&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Arrays&lt;/h2&gt;
+&lt;p&gt;An array is a collection of data. Python has several types. I mainly use lists and dicts.&lt;/p&gt;
+&lt;h3&gt;Lists&lt;/h3&gt;
+&lt;p&gt;Lists are pretty simple. A list is a series of items that are separated by commas within square brackets. They can contain any data types, and can be mixed.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# list of strings&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hello&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;this&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;is&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;string&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="c1"&gt;# list of numbers&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;4.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;6.7&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="c1"&gt;# list of variables&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;second&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;third&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="c1"&gt;# mix list&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;string&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Dicts / JSON&lt;/h3&gt;
+&lt;p&gt;A dict (or dictionary) is a more comprevensive data item. The syntax is reasonably easy to understand, and features heavily when dealing with API. Javascript has a similar array type called JSON (JavaScript Object Notation). Many API will return a JSON object for you to use.&lt;/p&gt;
+&lt;p&gt;Again, dicts can hold all different types of data. However, the most interesting part of a dict is that each data item has a key. The key refers to the data stored. A dict is how one might intuitively think of a database record. Of course, you can have lists of dicts.&lt;/p&gt;
+&lt;p&gt;Not all dicts in a list have to have the same keys, but it is useful if they do.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;books = [
+    {
+        &amp;#39;title&amp;#39;: &amp;#39;1984&amp;#39;,
+        &amp;#39;author&amp;#39;: &amp;#39;George Orwell&amp;#39;
+    },
+    {
+        &amp;#39;title&amp;#39;: &amp;#39;Brave New World&amp;#39;,
+        &amp;#39;author&amp;#39;: &amp;#39;Aldous Huxley&amp;#39;
+    }
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Functions&lt;/h2&gt;
+&lt;p&gt;A function is an action that you regularly perform within a script. This saves you time in your code, as you only have to write the thing once. There are lots of built in functions in Python, you will definitely write your own.&lt;/p&gt;
+&lt;p&gt;Using the formula from above, we could write it as a function:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;def&lt;/span&gt; &lt;span class="nv"&gt;solve_y&lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;:
+    &lt;span class="nv"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nv"&gt;y&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Functions start &lt;em&gt;def&lt;/em&gt; then the name of the function followed by brackets and a colon. In the example we can pass a number to the function and the function performs the action. The "return" part means that the function will give the result of the function back. This can be assigned to a variable or something else.&lt;/p&gt;
+&lt;p&gt;Here are some results for our function:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; solve_y(4)
+20
+&amp;gt;&amp;gt;&amp;gt; solve_y(2)
+8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Our &lt;em&gt;solve_y&lt;/em&gt; function can be writted using the in-built power function. It raises any number to the power of another number:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;def&lt;/span&gt; &lt;span class="nv"&gt;solve_y&lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;:
+    &lt;span class="nv"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;pow&lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;, &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nv"&gt;y&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In our particular case, it doesn't really make it a lot simpler. However, it a bit clearer from a BODMAS point of view.&lt;/p&gt;
+&lt;h3&gt;For Loop&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;For loops&lt;/strong&gt; are used lots. A for loop iterates over an item, assigning each of results to a variable. It's kind of hard for non-programmers to get your head around, however, it very powerful. Here are some examples:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="nv"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;range&lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;:
+...     &lt;span class="nv"&gt;i&lt;/span&gt;
+... 
+&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="mi"&gt;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;range(x)&lt;/strong&gt; is a function that returns numbers incremented by 1. The range function starts at 0 by default and will count the number of items. Our for loop will assign the result of the range function to the variable i. This is then displayed on the screen.&lt;/p&gt;</content><category term="articles"></category><category term="Python"></category><category term="Software"></category><category term="Technology"></category></entry><entry><title>API, FTP, WTF!</title><link href="https://coraxfm.uk/api-ftp-wtf.html" rel="alternate"></link><published>2021-01-26T00:00:00+00:00</published><updated>2021-01-26T00:00:00+00:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2021-01-26:/api-ftp-wtf.html</id><summary type="html">&lt;p&gt;Your guide to automation in accounting&lt;/p&gt;</summary><content type="html">&lt;p&gt;Automating your accounting (and other) systems can be great for your business. It can help you get more done and with fewer errors. In order to get something automated, data needs to be retrieved from one and put into another. I wil describe two common methods.&lt;/p&gt;
+&lt;h2&gt;Application Programming Interface (API)&lt;/h2&gt;
+&lt;p&gt;An API is a method for receiving and sending data in a programming context. Many API are accessible over the internet. The easist way of thinking of an API is like a website. With a website the process is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open Browser and enter web address (Request)&lt;/li&gt;
+&lt;li&gt;Server presents the website code (Response)&lt;/li&gt;
+&lt;li&gt;Browser renders the code (Action)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;When you visit a website, you initiate a request and the browser and webserver perform some actions. A similar process happens with an API:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Send or request data from server (Request)&lt;/li&gt;
+&lt;li&gt;Get the data back (Response)&lt;/li&gt;
+&lt;li&gt;Do something with the data (Action)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;All an API does is provide a route to getting data in and out of software. An API just sits there until something interacts with it. I will write a future post with some API examples.&lt;/p&gt;
+&lt;h2&gt;File Transfer Protocol (FTP)&lt;/h2&gt;
+&lt;p&gt;FTP is a method for transferring files. Typically, in an FTP integration the process is that some software deposits a CSV file onto the FTP server. That server then may process the file futher or wait for another service to process the file. FTP integrations are usually used in conjunction with an API.&lt;/p&gt;
+&lt;p&gt;Let's say that you wanted to automate data transfer between Procure Wizard and Xero. In Procure Wizard, you can set a schedule to export invoices on a daily basis. However, the Xero API would not know that your invoices are waiting to be imported. You would need some code on your FTP server to take the Procure Wizard file and assemble it into the appropriate format for Xero.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;API and FTP aren't automations in themselves. They are methods for getting data in and out of software that can be automated. An automation might involve both API and FTP, or just one. But will definitely involve two bits of software...&lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category><category term="Software"></category><category term="Technology"></category></entry><entry><title>Migrating from Sage to Netsuite</title><link href="https://coraxfm.uk/migrating-from-sage-to-netsuite.html" rel="alternate"></link><published>2021-01-12T00:00:00+00:00</published><updated>2021-01-12T00:00:00+00:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2021-01-12:/migrating-from-sage-to-netsuite.html</id><summary type="html">&lt;p&gt;One customers journey from Sage50 to Netsuite&lt;/p&gt;</summary><content type="html">&lt;p&gt;In early 2020, I migrated a client from &lt;a href="https://www.sage.com/en-gb/products/sage-50cloud/"&gt;Sage50&lt;/a&gt; to &lt;a href="https://www.netsuite.com/portal/home.shtml"&gt;Oracle's Netsuite&lt;/a&gt;. Read about how the project was implemented.&lt;/p&gt;
+&lt;h2&gt;Background&lt;/h2&gt;
+&lt;p&gt;The client is a fast growing organisation made up of several trading legal entities. The organisation was characterised by low value, high volume transactions. Sage50 was becoming a hinderence to good decision making and becoming onerous for the finance team.&lt;/p&gt;
+&lt;p&gt;Each of the client's locations were operated under a separate legal entity. However, this was making reporting difficult in Sage as each legal entity has it's own instance of Sage. Creating consolidated accounts means exporting data out as a csv file and having some monster reporting spreadsheet. Because Sage treats each legal entity separately, the finance team were frequently having to log in and out of Sage to change companies.&lt;/p&gt;
+&lt;p&gt;Sage50 can be backed up to the cloud, but does not offer a good hosted solution. This means that you need to have good, frequent backups. If you don't, it could go very wrong. Xero and Netsuite are both examples of cloud software, meaning that they are on the internet and someone else will back up the data. Sage50 cannot be used remotely, so can be difficult if there is a need for staff to work offsite.&lt;/p&gt;
+&lt;p&gt;The client has lots of different sytems and pieces of software in use and wanted as many as possible to be automated. Sage50 doesn't relly have the capability to automate data entry. Various data can be imported, but these are manually done. It's better than nothing, but software like Xero and Nesuite are better options.&lt;/p&gt;
+&lt;p&gt;The main criteria of the new software were:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Consolidated accounts&lt;/li&gt;
+&lt;li&gt;Strong reporting&lt;/li&gt;
+&lt;li&gt;Scope for automation&lt;/li&gt;
+&lt;li&gt;Off premises&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After looking at a number of different providers, the client settled on Netsuite being the right price and mix of the above criteria. Netsuite cannot be bought directly, it needs to be bought through a partner. I wil cover the alternatives in another post.&lt;/p&gt;
+&lt;h2&gt;Results&lt;/h2&gt;
+&lt;p&gt;Netsuite dramatically improved the reporting within the finance function. The implementation came in on time and within budget. The opening balance date was aligned to the end of a VAT quarter. Aligning to a year end wasn't feasible. Under these circumstances, one would normally have comparative trial balances for each month within the financial year and maybe some year end balances. The trial balance date was 31st Jan, with the year end being 31st Oct. So trial balances for Nov, Dec, and Jan would be the norm. However, we imported a trial balance for every month covering 7 years of trade for multiple legal entities.&lt;/p&gt;
+&lt;h3&gt;Trial balances&lt;/h3&gt;
+&lt;p&gt;Sage50 has the ability to export csv files containing data. It would not have been feasible to export each trial balance manually to cover the required time period. At least two entities had 7 years worth of data, this would mean exporting at least 170 trial balances. To get the Sage balances in the correct Netsuite format, I exported the data from Sage and wrote a small Python script to read the csv and write a new csv in the correct format for Netsuite. Once the script had been written, it could be run and re-run for any data tweeks before final import to Netsuite. The code took about half a day to write, but saved many hours of manipulating data in a spreadsheet.&lt;/p&gt;
+&lt;h3&gt;Nominal codes&lt;/h3&gt;
+&lt;p&gt;Sage50 has a four digit code to represent the nominal code, Netsuite is a bit more flexible. The client want to take the opportunity to revise some of the chart of accounts. The old chart of accounts was not consistent over the different Sage entities and was largely the standard chart of accounts that Sage provides. They wanted a consistent chart of accounts and something more fit for purpose. After designing a new chart of accounts, we creating a mapping table to map from the old codes to the new codes. This could then be read by the script above so that the trial balances used the new coding.&lt;/p&gt;
+&lt;h3&gt;Automation&lt;/h3&gt;
+&lt;p&gt;Due to the high volume, low vale of transactions, the client wanted to have sales imported from the EPOS system into the accounting software. Under Sage, this was done on a weekly basis. The EPOS software did not provide an API, so we wrote a script to crawl over the EPOS provider's back office website and generate an import file. I had previously written this script to generate an import for Sage, so was able to modify slightly to match Netsuite.&lt;/p&gt;
+&lt;p&gt;Most of the companies bookings were made through an online customer portal. Deposists are taken and then redeemed through the EPOS when a customer is on site. As the deposts were non-refundable, the VAT point was the date of the deposit which complictes the book-keeping slightly. This service did provide an API, so I wrote a script to generate an import file for Netsuite.&lt;/p&gt;
+&lt;p&gt;The last of the major integrations was for the client's purchasing system. The purchasing system held all orders, delivery notes, and invoices and did three-way matching. Once a day, the software would deposit a csv of invoices onto an FTP server. The integration for this was written by the third party provider as they had experience of this.&lt;/p&gt;
+&lt;p&gt;These integrations were all run from an AWS EC2 instance specifically created for the purpose of hosting integrations. The EPOS and deposit automations were written in Python and run on a cronjob.&lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category><category term="Software"></category><category term="Case Study"></category><category term="Netsuite"></category><category term="Sage"></category></entry><entry><title>Migrating Accounting Systems</title><link href="https://coraxfm.uk/migrating-accounting-systems.html" rel="alternate"></link><published>2021-01-03T00:00:00+00:00</published><updated>2021-01-03T00:00:00+00:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2021-01-03:/migrating-accounting-systems.html</id><summary type="html">&lt;p&gt;What is the process for migrating accounting systems?&lt;/p&gt;</summary><content type="html">&lt;p&gt;Whether implementing an accounting system like &lt;a href="https://xero.com"&gt;Xero&lt;/a&gt; for the first time, or migrating to or from other software, you'll need to follow the correct steps.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Plan, plan, plan&lt;/li&gt;
+&lt;li&gt;Choosing the software&lt;/li&gt;
+&lt;li&gt;Timing&lt;/li&gt;
+&lt;li&gt;Training&lt;/li&gt;
+&lt;li&gt;Static data&lt;/li&gt;
+&lt;li&gt;Opening balances&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Plan, plan, plan&lt;/h2&gt;
+&lt;p&gt;Planning is essential for migrating to new accounting software. It's a bit cliche, but it goes a long way. Implmenting accounting software is a relatively straight forward process and many pieces of software have built in guides to follow. This guide should help you with the broad outline common to many different software setups.&lt;/p&gt;
+&lt;h2&gt;Choosing the software&lt;/h2&gt;
+&lt;p&gt;You need to choose the right software for your business. I will cover some aspects of choosing different software in another post. For now, common considerations are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cloud vs on-premises&lt;/li&gt;
+&lt;li&gt;Size of your organisation&lt;/li&gt;
+&lt;li&gt;Maturity of finance function&lt;/li&gt;
+&lt;li&gt;Your existing processes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Moving accounting systems can be quite onerous depending on your existing processes, so it is important to consider how long you might use the software for.&lt;/p&gt;
+&lt;h2&gt;Timing&lt;/h2&gt;
+&lt;p&gt;Choosing the timing is really part of the planning phase. There are particular break points that lend themselves to migrating accounting system. Those times are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Year End (Best)&lt;/li&gt;
+&lt;li&gt;VAT Quarter End&lt;/li&gt;
+&lt;li&gt;Month End&lt;/li&gt;
+&lt;li&gt;Mid-month (Worse, don't do this)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;THe main difference between the different timings are the opening balances.&lt;/p&gt;
+&lt;p&gt;Year ends are a good time migrate because it is a clear cut-off from old system to new system. If you are a smaller company, it also gives solid opening balances as these can be confirmed by your accountant. Whilst a year end is the best time to make the switch, however, your business may want to have the accounting system in sooner, so aligning with the VAT quarter might be more suitable.&lt;/p&gt;
+&lt;p&gt;When migrating at a VAT quarter end, you would perform a VAT return in your old software. Any open invoices in last VAT return would be bought over with an "out of scope" tax code. This will mean that it is not included on any future VAT returns.&lt;/p&gt;
+&lt;h2&gt;Training&lt;/h2&gt;
+&lt;p&gt;No one likes to feel that they don't know what they are doing. Moving to new software can often leave staff behind. Training is one of the most important tasks, without adequate training it doesn't really matter how good the system or data are, you won't be able to use the software's full potential.&lt;/p&gt;
+&lt;h2&gt;Static data&lt;/h2&gt;
+&lt;p&gt;Static data can be prepared well in advance. Examples of static data are: customer and supplier records, nominal codes, stock items, and employees. All of these can be arranged into the correct format ready for import or entry. Any changes after the initial preparation can then be easily updated.&lt;/p&gt;
+&lt;p&gt;I would recommend preparing spreadsheets of static data to import into your new software. This might be easier if you are migrating from one accounting package to another. A spreadsheet gives you the opportunity to check over the data and make changes as required before importing into the new software.&lt;/p&gt;
+&lt;h2&gt;Opening balances&lt;/h2&gt;
+&lt;p&gt;The last data to prepare are the opening balances. This gives you the starting point for your new system. The opening balances are your trial balance at the end of the last day in your old accounting system. Your accountant should be able to help you with these figures. Migrating from one system to another is easier as you should be able to export a trial balance from the old system, it would then be acase of entering the data manually or importing the data. You will also need to enter all opening invoices into the new system. Usually, the balances of debtors and creditor ledgers would get posted to the suspense nominal, with the open invoiecs posted there too, so that the values cancel out.&lt;/p&gt;
+&lt;p&gt;A note on comparatives - In most cases, some comparative data are brought over. Xero normally takes they final trial balance for the last two years, so that there is something to compare against. Depending on date of your opening balances, you might bring over monthly trial balances for the current financial year. I recently migrated a client from &lt;a href="https://www.sage.com/en-gb/products/sage-50cloud/"&gt;Sage50&lt;/a&gt; to &lt;a href="https://www.netsuite.com/portal/home.shtml"&gt;Oracle's Netsuite&lt;/a&gt;. We bought over 7 years worth of monthly trial balances, covering several legal entities. This was very ambitious, but provided some very good comparative data. &lt;a href="https://coraxfm.uk/migrating-from-sage-to-netsuite.html"&gt;More here&lt;/a&gt;&lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category><category term="Software"></category></entry><entry><title>Gnucash</title><link href="https://coraxfm.uk/gnucash.html" rel="alternate"></link><published>2018-09-23T00:00:00+01:00</published><updated>2018-09-23T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2018-09-23:/gnucash.html</id><summary type="html">&lt;p&gt;Gnucash - Personal Finance Software&lt;/p&gt;</summary><content type="html">&lt;p&gt;I'm a big fan of FOSS software in general. One of my favourites and most used pieces of software is &lt;a href="https://gnucash.org"&gt;Gnucash&lt;/a&gt;. I've been using Gnucash to manage my personal finances for years. It's reasonably simple to understand how it operates. I've not read the documentation, but have been able to figure most of it out.&lt;/p&gt;
+&lt;p&gt;My workflow usually consists of me entering cash data onto the &lt;a href="https://play.google.com/store/apps/details?id=org.gnucash.android&amp;amp;hl=en_US"&gt;Android&lt;/a&gt; app and importing that data and bank statement data into the desktop app. I can then allocate funds accuratley and quickly. Gnucash is able to associate descriptions from your bank statements with Gnucash categories to speed things up. Great if one description always matches up with the correct category. Not so much if the description has different categories.&lt;/p&gt;
+&lt;p&gt;My main area of criticism with Gnucash is the reporting. However, reporting across the board on accounting products is weak. Whether that's accountants like thier own reports, or are protecting their jobs by writing their own Excel reports - I'm not sure. The reports are passable, however, a report I'd really like is a time series cashflow. Gnucash can produce a total for a period, but not a time series, so I have to enter the data onto a spreadsheet - classic accountant. I'm sure I could write the report I want for Gnucash (it's FOSS after all), but I don't have the intellectual capacity, nor the programming skills at this time.&lt;/p&gt;
+&lt;p&gt;It's also not got a web front end, and the mysql database is experiental. Which means it's not great if you want multiple logins, or to use different machines, or use a server.&lt;/p&gt;
+&lt;p&gt;Still, for personal finance, where you are the only user, it's great. I've look around and have nto found anything that is close to this comprehensive without being overwhelming and non-free.&lt;/p&gt;</content><category term="articles"></category><category term="FOSS"></category><category term="Accounting"></category><category term="Software"></category><category term="Gnucash"></category></entry></feed>
