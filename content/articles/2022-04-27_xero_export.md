@@ -4,7 +4,7 @@ Tags: Accounting, Software, Technology, Xero, ERP
 Summary: Moving to an ERP? Here's how to export your Xero balances.
 Image: origin/xero_export.png
 
-[In this blog post](2021-01-03_accounting_systems.md), I described the process of moving accounting systems. One of the important tasks is bringing over comparable balances. In your new accounting system, you will want to be able to view historical data, not just look at new data entered since go-live.
+[In this blog post](2021-01-03_accounting_systems.html), I described the process of moving accounting systems. One of the important tasks is bringing over comparable balances. In your new accounting system, you will want to be able to view historical data, not just look at new data entered since go-live.
 
 Typically, a limited number of year end balances will be brought in. However, you can do better than that. In one migration, we prepared month end balances for several legal entites going back seven years. In another migration, we prepared month end balances for one legal entity for four years.
 
