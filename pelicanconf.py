@@ -22,8 +22,8 @@ AUTHOR_FEED_RSS = None
 # Blogroll
 LINKS = (
     ('info@coraxfm.uk', 'mailto:info@coraxfm.uk'),
-    ('CIMA', 'https://www.cimaglobal.com/About-us/Find-a-CIMA-Accountant/Tom-Lee-Gough-Accounting-13911/'),
-    # ('LinkedIn', 'https://www.linkedin.com/company/tlg-accounting/'),
+    ('CIMA', 'https://www.cimaglobal.com/About-us/Find-a-CIMA-Accountant/Corax-FM-13911/'),
+    ('LinkedIn', 'https://www.linkedin.com/company/coraxfm/'),
     ('Hermes', 'https://hermes.huginn.uk'),
     ('Cosearch', 'https://cosearch.huginn.uk'),
     ('Storyset', 'https://storyset.com/'),
