@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Corax FM - Convert Xero Journals for Netsuite and Dynamics</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+        
+        <link rel="stylesheet" href="./theme/css/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="./theme/css/spectre.min.css" />
+        <link rel="stylesheet" href="./theme/css/style.css" />
+
+    <link href="https://coraxfm.uk/feed.rss" type="application/atom+xml" rel="alternate" title="Corax FM Full Atom Feed" />
+
+
+
+    <meta name="tags" content="Accounting" />
+    <meta name="tags" content="Software" />
+    <meta name="tags" content="Technology" />
+    <meta name="tags" content="Xero" />
+    <meta name="tags" content="ERP" />
+    <meta name="tags" content="Netsuite" />
+    <meta name="tags" content="Dynamics" />
+
+
+    <script src="https://swetrix.org/swetrix.js" defer></script>
+</head>
+
+<body id="index">
+
+    <div class="container">
+
+        <header class="navbar m-2">
+            <section class="navbar-section">
+                <a href="../" class="navbar-brand mr-2"><span class="text-primary text-large">Corax FM</span></a>
+            </section>
+
+            <section class="navbar-section">
+                <a class="btn btn-link bg-primary text-light hide-sm" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>        
+                    <a class="btn btn-link" href="./pages/about.html">About</a>
+                    <a class="btn btn-link" href="./pages/services.html">Services</a>
+                    <a class="btn btn-link" href="./pages/software.html">Software</a>
+                <a class="btn btn-link mr-2" href="../archives.html">Blog</a>
+                <a class="btn btn-link bg-success text-light hide-sm" href="../">Get A Quote</a>
+            </section>
+
+            <secion class="navbar-section show-sm">
+                <a class="btn btn-link bg-primary text-light" href="mailto:info@coraxfm.uk">info@coraxfm.uk</a>
+                <a class="btn btn-link bg-success text-light" href="../">Get A Quote</a>
+            </secion>
+        </header>
+
+
+        <div class="page-content">
+            
+            <div class="columns">
+                <div class="column hero col-12 bg-primary text-light">
+                    <div class="columns">
+                        <div class="column col-8 col-lg-10 col-md-12 col-mx-auto">
+
+<div class="columns">
+  <div class="column col-12 text-center">
+     <h1>Convert Xero Journals for Netsuite and Dynamics</h1>
+    </div>
+</div>
+
+
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column col-12 bg-gray text-primary hero hero-sm">
+                    
+<div class="column col-8 col-sm-10 col-mx-auto">
+    <div class="columns">
+        <div class="column col-12">
+            <p>Previously, <a href="" title="Export_Your_Xero_Transactions_to_Use_in_any_ERP.html">I wrote about</a> exporting your Xero balances to use in any ERP system. <a href="https://github.com/huginnuk/coraxfm_scripts/">This repository</a> contains the code to generate a JSON object from your Xero transaction history, then convert it into journals for either Netsuite of Dynamics Business Central.</p>
+<p>This script assumes that the directory structures is:</p>
+<pre>
+  - Working Directory
+    - xero_export
+      - xero_export_1.csv
+      - xero_export_2.csv
+      ....
+      - xero_export_n.csv
+    - converted
+    - xero_convert.py
+</pre>
+
+<p>It also assumes that the file name is: <code>{company_name}_XERO_GL_{year}_APR_27.txt</code>. Where <code>{company_name}</code> is your entity name and <code>{year}</code> is your financial year. When I have exported data in the past, it is easy to download one financial year at a time to have more manageable sizes of data.</p>
+<p>When creating opening balances, there are several different methods. You can have a incremental journal for each trial balance, or a cumulative balance that then reverses out. I would recommend having an incremental journal for each month prior to your current year, then a reversing cumulative balance in your current year. The reasons for this is so that you can still run a year end process in each year that you import, and that reversing out any balances will help keep your control accounts in check on the day that you migrate.</p>
+<p>The difference between the methodologies are shown below:</p>
+<p>Incremental:</p>
+<pre>
+  DATE        DR  CR
+  202x-01-31  100
+  202x-02-28  120
+  202x-03-31  130
+</pre>
+
+<p>Cumulative:</p>
+<pre>
+  DATE        DR  CR
+  202x-01-31  100 
+  202x-02-01      100
+  202x-02-28  220
+  202x-03-01      220
+  202x-03-31  350
+</pre>
+
+<p>Combined</p>
+<pre>
+  DATE        DR  CR
+  202x-01-31  100
+  202x-02-28  120
+  202x-03-01      120
+  202x-03-31  350
+</pre>
+
+<p>The scripts included generate one trial balance per month in a single journal. It is non-cumulative so creates incremental journals. This is ideal for generating journals up to your last year end. To convert the Xero export, first run <a href="https://gitea.huginn.uk/tom/coraxfm_code/src/branch/master/xero_convert.py">xero_convert.py</a> then either <a href="https://gitea.huginn.uk/tom/coraxfm_code/src/branch/master/netsuite_convert.py">netsuite_journals.py</a> or <a href="https://gitea.huginn.uk/tom/coraxfm_code/src/branch/master/dynamics_convert.py">dynamics_convert.py</a> depending on what your new ERP is. You will likely need to tweek these scripts to your own requirements.</p>
+<p>These scripts assume that you are retaining your existing chart of accounts and reporting cateogries. However, it is pretty simple to remap nominal codes or categories within the Python code.</p>
+        </div>
+
+        <div class="column col-12">
+        <footer class="post-info text-left">
+            <time class="published" datetime="2022-05-10T00:00:00+01:00">
+              Tue 10 May 2022
+            </time>
+            <div class="tags">
+                Tags:
+                    <a href="./tag/accounting.html">Accounting</a>
+                    <a href="./tag/software.html">Software</a>
+                    <a href="./tag/technology.html">Technology</a>
+                    <a href="./tag/xero.html">Xero</a>
+                    <a href="./tag/erp.html">ERP</a>
+                    <a href="./tag/netsuite.html">Netsuite</a>
+                    <a href="./tag/dynamics.html">Dynamics</a>
+            </div>
+        </footer><!-- /.post-info -->
+    </div>
+</div>
+
+                                
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="hero hero-sm">
+            <div class="">
+                <a href="mailto:info@coraxfm.uk" class="btn btn-link">info@coraxfm.uk</a>
+                <a href="https://www.cimaglobal.com/About-us/Find-a-CIMA-Accountant/Corax-FM-13911/" class="btn btn-link">CIMA</a>
+                <a href="https://www.linkedin.com/company/coraxfm/" class="btn btn-link">LinkedIn</a>
+                <a href="https://hermes.huginn.uk" class="btn btn-link">Hermes</a>
+                <a href="https://cosearch.huginn.uk" class="btn btn-link">Cosearch</a>
+                <a href="https://storyset.com/" class="btn btn-link">Storyset</a>
+                <a href="#" class="btn btn-link">TOP</a>
+            </div>
+
+            <!-- <p>&copy; 2017 - 2021 Tom Lee-Gough</p> -->
+        </footer>
+    </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialising the script with the Project ID
+    // you can find in the dashboard
+    swetrix.init('tQ4Waqjms8ss')
+
+    // Tracking page views
+    swetrix.trackViews()
+  })
+</script>
+
+<noscript>
+  <!--
+  Don't forget to change YOUR_PROJECT_ID in the link to your Project ID
+  -->
+  <img
+    src="https://api.swetrix.com/log/noscript?pid=tQ4Waqjms8ss"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  />
+</noscript>
+
+</body>
+
+</html>

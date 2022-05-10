@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Corax FM</title><link href="https://coraxfm.uk/" rel="alternate"></link><link href="https://coraxfm.uk/feed.rss" rel="self"></link><id>https://coraxfm.uk/</id><updated>2022-04-27T00:00:00+01:00</updated><entry><title>Export Your Xero Transactions to Use in any ERP</title><link href="https://coraxfm.uk/export-your-xero-transactions-to-use-in-any-erp.html" rel="alternate"></link><published>2022-04-27T00:00:00+01:00</published><updated>2022-04-27T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2022-04-27:/export-your-xero-transactions-to-use-in-any-erp.html</id><summary type="html">&lt;p&gt;Moving to an ERP? Here's how to export your Xero balances.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="migrating-accounting-systems.html"&gt;In this blog post&lt;/a&gt;, I described the process of moving accounting systems. One of the important tasks is bringing over comparable balances. In your new accounting system, you will want to be able to view historical data, not just look at new data entered since go-live.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Corax FM</title><link href="https://coraxfm.uk/" rel="alternate"></link><link href="https://coraxfm.uk/feed.rss" rel="self"></link><id>https://coraxfm.uk/</id><updated>2022-05-10T00:00:00+01:00</updated><entry><title>Convert Xero Journals for Netsuite and Dynamics</title><link href="https://coraxfm.uk/convert-xero-journals-for-netsuite-and-dynamics.html" rel="alternate"></link><published>2022-05-10T00:00:00+01:00</published><updated>2022-05-10T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2022-05-10:/convert-xero-journals-for-netsuite-and-dynamics.html</id><summary type="html">&lt;p&gt;Convert historical Xero journals for use in Netsuite or Dynamics&lt;/p&gt;</summary><content type="html">&lt;p&gt;Previously, &lt;a href="" title="Export_Your_Xero_Transactions_to_Use_in_any_ERP.html"&gt;I wrote about&lt;/a&gt; exporting your Xero balances to use in any ERP system. &lt;a href="https://github.com/huginnuk/coraxfm_scripts/"&gt;This repository&lt;/a&gt; contains the code to generate a JSON object from your Xero transaction history, then convert it into journals for either Netsuite of Dynamics Business Central.&lt;/p&gt;
+&lt;p&gt;This script assumes that the directory structures is:&lt;/p&gt;
+&lt;pre&gt;
+  - Working Directory
+    - xero_export
+      - xero_export_1.csv
+      - xero_export_2.csv
+      ....
+      - xero_export_n.csv
+    - converted
+    - xero_convert.py
+&lt;/pre&gt;
+
+&lt;p&gt;It also assumes that the file name is: &lt;code&gt;{company_name}_XERO_GL_{year}_APR_27.txt&lt;/code&gt;. Where &lt;code&gt;{company_name}&lt;/code&gt; is your entity name and &lt;code&gt;{year}&lt;/code&gt; is your financial year. When I have exported data in the past, it is easy to download one financial year at a time to have more manageable sizes of data.&lt;/p&gt;
+&lt;p&gt;When creating opening balances, there are several different methods. You can have a incremental journal for each trial balance, or a cumulative balance that then reverses out. I would recommend having an incremental journal for each month prior to your current year, then a reversing cumulative balance in your current year. The reasons for this is so that you can still run a year end process in each year that you import, and that reversing out any balances will help keep your control accounts in check on the day that you migrate.&lt;/p&gt;
+&lt;p&gt;The difference between the methodologies are shown below:&lt;/p&gt;
+&lt;p&gt;Incremental:&lt;/p&gt;
+&lt;pre&gt;
+  DATE        DR  CR
+  202x-01-31  100
+  202x-02-28  120
+  202x-03-31  130
+&lt;/pre&gt;
+
+&lt;p&gt;Cumulative:&lt;/p&gt;
+&lt;pre&gt;
+  DATE        DR  CR
+  202x-01-31  100 
+  202x-02-01      100
+  202x-02-28  220
+  202x-03-01      220
+  202x-03-31  350
+&lt;/pre&gt;
+
+&lt;p&gt;Combined&lt;/p&gt;
+&lt;pre&gt;
+  DATE        DR  CR
+  202x-01-31  100
+  202x-02-28  120
+  202x-03-01      120
+  202x-03-31  350
+&lt;/pre&gt;
+
+&lt;p&gt;The scripts included generate one trial balance per month in a single journal. It is non-cumulative so creates incremental journals. This is ideal for generating journals up to your last year end. To convert the Xero export, first run &lt;a href="https://gitea.huginn.uk/tom/coraxfm_code/src/branch/master/xero_convert.py"&gt;xero_convert.py&lt;/a&gt; then either &lt;a href="https://gitea.huginn.uk/tom/coraxfm_code/src/branch/master/netsuite_convert.py"&gt;netsuite_journals.py&lt;/a&gt; or &lt;a href="https://gitea.huginn.uk/tom/coraxfm_code/src/branch/master/dynamics_convert.py"&gt;dynamics_convert.py&lt;/a&gt; depending on what your new ERP is. You will likely need to tweek these scripts to your own requirements.&lt;/p&gt;
+&lt;p&gt;These scripts assume that you are retaining your existing chart of accounts and reporting cateogries. However, it is pretty simple to remap nominal codes or categories within the Python code.&lt;/p&gt;</content><category term="articles"></category><category term="Accounting"></category><category term="Software"></category><category term="Technology"></category><category term="Xero"></category><category term="ERP"></category><category term="Netsuite"></category><category term="Dynamics"></category></entry><entry><title>Export Your Xero Transactions to Use in any ERP</title><link href="https://coraxfm.uk/export-your-xero-transactions-to-use-in-any-erp.html" rel="alternate"></link><published>2022-04-27T00:00:00+01:00</published><updated>2022-04-27T00:00:00+01:00</updated><author><name>Tom Lee-Gough</name></author><id>tag:coraxfm.uk,2022-04-27:/export-your-xero-transactions-to-use-in-any-erp.html</id><summary type="html">&lt;p&gt;Moving to an ERP? Here's how to export your Xero balances.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="migrating-accounting-systems.html"&gt;In this blog post&lt;/a&gt;, I described the process of moving accounting systems. One of the important tasks is bringing over comparable balances. In your new accounting system, you will want to be able to view historical data, not just look at new data entered since go-live.&lt;/p&gt;
 &lt;p&gt;Typically, a limited number of year end balances will be brought in. However, you can do better than that. In one migration, we prepared month end balances for several legal entites going back seven years. In another migration, we prepared month end balances for one legal entity for four years.&lt;/p&gt;
 &lt;p&gt;Whilst this process would be hard and error prone if you were manipulating spreadsheets, it is pretty simple to do with Python. Most accounting systems have a way of exporting transaction data, whilst this would be too much detail, we have usually prepared month end balances so that there is something to compare.&lt;/p&gt;
 &lt;p&gt;In Xero, going to &lt;strong&gt;Export Accounting Data&lt;/strong&gt; within the &lt;strong&gt;Advanced Accounting&lt;/strong&gt; menu (&lt;a href="https://go.xero.com/Settings/AdvancedAccounting"&gt;link&lt;/a&gt;) will give you a choice of formats to export. All of these are plain text, so will open in any text editor. Generally, I choose &lt;em&gt;Xero General Ledger (.txt)&lt;/em&gt; as the format, as it seems to be the simplest, contain the most data, and be free of software specific quirks. &lt;/p&gt;

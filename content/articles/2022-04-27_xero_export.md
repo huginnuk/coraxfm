@@ -1,4 +1,4 @@
-Title: Export Your Xero Transactions to Use in any ERP 
+Title: Export Your Xero Transactions to Use in any ERP
 Date: 2022-04-27
 Tags: Accounting, Software, Technology, Xero, ERP
 Summary: Moving to an ERP? Here's how to export your Xero balances.
