@@ -1,4 +1,4 @@
-Title: Bookkeeing for Energy Usage  
+Title: Bookkeeping for Energy Usage  
 Date: 2022-04-18
 Tags: Accounting, Gnucash
 Summary: How to show your enegy usage with bookkeeping 
