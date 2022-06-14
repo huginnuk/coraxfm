@@ -18,3 +18,5 @@ Cloud accounting is great for lots of use cases. However, there are some risks:
  The biggest "problem" that cloud accounting solves is VAT MTD. All businesses that are VAT registered have to use [specific software](https://www.gov.uk/guidance/find-software-thats-compatible-with-making-tax-digital-for-vat) for filing VAT. The answer is VAT bridging software. [TaxCalc](https://www.taxcalc.com/) sells VAT filing software for £17.50 a year. That makes it a lot less money than full-blown accounting software.
 
  So what to use for the bookkeeping part? Any software that you are able to keep accurate accounts in would work. A spreadsheet would be fine, but would end up being onerous for reconciling and making sure that the data is correct. The VAT bridging software would work well with either [Plain Text Accounting](https://plaintextaccounting.org/) or [Gnucash](https://gnucash.org/) if you'd like a user interface.
+
+ The last part, but most important, is sales invoices. Many banking apps like [Tide](https://www.tide.co/) include invoicing within their app free of charge. Sales invoices can be generated in the app, and then entered as a plain text transation.
