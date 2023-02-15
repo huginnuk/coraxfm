@@ -27,6 +27,8 @@ LINKS = (
     ('Hermes', 'https://hermes.huginn.uk'),
     ('Cosearch', 'https://cosearch.huginn.uk'),
     ('Storyset', 'https://storyset.com/'),
+    ('Twitter', 'https://twitter.com/CoraxFM'),
+    ('Medium', 'https://medium.com/@coraxfm'),
     ('TOP', '#')
 )
 

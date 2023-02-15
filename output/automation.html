@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Corax FM - Categories</title>
+      <title>Corax FM - Automation</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,6 +15,11 @@
         <link rel="stylesheet" href="./theme/css/style.css" />
 
     <link href="https://coraxfm.uk/feed.rss" type="application/atom+xml" rel="alternate" title="Corax FM Full Atom Feed" />
+
+
+
+    <meta name="tags" content="Software" />
+
 
     <script src="https://swetrix.org/swetrix.js" defer></script>
 </head>
@@ -51,6 +56,13 @@
                     <div class="columns">
                         <div class="column col-8 col-lg-10 col-md-12 col-mx-auto">
 
+<div class="columns">
+  <div class="column col-12 text-center">
+     <h1>Automation</h1>
+    </div>
+</div>
+
+
                         </div>  
                     </div>
                 </div>
@@ -59,6 +71,32 @@
             <div class="columns">
                 <div class="column col-12 bg-gray text-primary hero hero-sm">
                     
+<div class="column col-8 col-sm-10 col-mx-auto">
+    <div class="columns">
+        <div class="column col-12">
+            <p>A well known Linkedin influencer crops up in my feed pretty frequently. The influencer often posts screenshots of tweets that they've made. They're not the only one, there are a number of posters that do similar things. I find it interesting becuase Twitter-Linkedin cross posting was a very early integration that I recall.</p>
+<p>In fact, if you head over to your <a href="https://www.linkedin.com/mypreferences/d/twitter">LinkedIn Preferences</a> you can connect Twitter and cross post automatically. I would have thought that most things would want to be cross posted, but then, I'm not an influencer.</p>
+<p>I don't like inefficent processes. I dislike the feeling that I'm wasting time. I like automating small things, because it turns a boring action (copy &amp; paste) into an interesting problem to solve (how do I do the thing). With that in mind, I'm going to describe my workflow for publishing a post on this blog. I don't publish very often, but when I do, I don't want to be copying and pasting anything.</p>
+<p>I write my blog entries in <a href="https://www.markdownguide.org/">Markdown</a>, essentially, some minimal markup that can easily get converted into HTML. My website is generated in static site generator called <a href="https://docs.getpelican.com/en/latest/index.html">Pelican</a>. I use <a href="https://git-scm.com/">git</a> for version control, which I self-host with <a href="https://gitea.io/en-us/">Gitea</a>. So far, not much automted. I can't really automate the writing of blog posts.</p>
+<p>Now, the automation bits. The Gitea repository syncs every 8 hours with a Github repository. When the Github repository gets the latest code from Gitea, Netlify pulls the website from Gitea. Within the website all the blog posts are included in the <a href="https://www.coraxfm.uk/feed.rss">RSS feed</a>. <a href="https://zapier.com">Zapier</a> gets the most recent blog post from the RSS feed and does three things: posts on the <a href="https://www.linkedin.com/company/coraxfm/">CoraxFM Linkedin company page</a>, creates a <a href="https://twitter.com/CoraxFM">tweet</a>, and a <a href="https://medium.com/@coraxfm">Medium story</a>.</p>
+<p>I think that the trouble with some of the automations is that many people cannot even imagine what can be automated with relative ease. Zapier is a no-code solution to automation. You could replace the version control/static site stuff that here with Wordpress. Or anything else that supports an RSS feed.</p>
+<p>What processes might you have to automate?</p>
+        </div>
+
+        <div class="column col-12">
+        <footer class="post-info text-left">
+            <p>If you have any comments about this blog post, email me at <a href="mailto:info@coraxfm.uk">info@coraxfm.uk</a><p>
+            <time class="published" datetime="2023-02-15T00:00:00+00:00">
+              Wed 15 February 2023
+            </time>
+            <div class="tags">
+                Tags:
+                    <a href="./tag/software.html">Software</a>
+            </div>
+        </footer><!-- /.post-info -->
+    </div>
+</div>
+
                                 
                 </div>
             </div>
