@@ -16,3 +16,5 @@ Now, the automation bits. The Gitea repository syncs every 8 hours with a Github
 I think that the trouble with some of the automations is that many people cannot even imagine what can be automated with relative ease. Zapier is a no-code solution to automation. You could replace the version control/static site stuff that here with Wordpress. Or anything else that supports an RSS feed.
 
 What processes might you have to automate?
+
+*LAST MINUTE UPDATE*: The funny thing about this post is that attempting to push the respository to Gitea failed. I couldn't connect to my server at all. Trying to connect to my server through both my laptop and phone didn't work, either 4g or wifi. I forgot that I had set the firewall to limit ssh connections from to particular IP addresses. Automation can solve some problems, but can introduce others too!
