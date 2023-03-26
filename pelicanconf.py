@@ -29,6 +29,7 @@ LINKS = (
     ('Storyset', 'https://storyset.com/'),
     ('Twitter', 'https://twitter.com/CoraxFM'),
     ('Medium', 'https://medium.com/@coraxfm'),
+    ('Mastodon', 'https://social.coraxfm.uk/@tom'),
     ('TOP', '#')
 )
 

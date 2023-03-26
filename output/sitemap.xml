@@ -5,28 +5,35 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://coraxfm.uk/</loc>
-<lastmod>2023-02-17T13:41:24-00:00</lastmod>
+<lastmod>2023-03-26T20:48:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://coraxfm.uk/pages/about.html</loc>
-<lastmod>2023-02-17T13:41:24-00:00</lastmod>
+<lastmod>2023-03-26T20:48:50-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://coraxfm.uk/pages/services.html</loc>
-<lastmod>2023-02-17T13:41:24-00:00</lastmod>
+<lastmod>2023-03-26T20:48:50-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://coraxfm.uk/pages/software.html</loc>
-<lastmod>2023-02-17T13:41:24-00:00</lastmod>
+<lastmod>2023-03-26T20:48:50-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://coraxfm.uk/adventures-in-the-fediverse.html</loc>
+<lastmod>2023-03-26T00:00:00+00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -145,14 +152,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://coraxfm.uk/category/articles.html</loc>
-<lastmod>2023-02-15T00:00:00-00:01</lastmod>
+<lastmod>2023-03-26T00:00:00-00:01</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://coraxfm.uk/tag/software.html</loc>
-<lastmod>2023-02-15T00:00:00-00:01</lastmod>
+<lastmod>2023-03-26T00:00:00-00:01</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -299,7 +306,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://coraxfm.uk/author/tom-lee-gough.html</loc>
-<lastmod>2023-02-15T00:00:00-00:01</lastmod>
+<lastmod>2023-03-26T00:00:00-00:01</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
